@@ -1,6 +1,8 @@
 // Deadlines and post dates are offsets in days from today, turned into real
 // dates when the store is seeded, so "Closing soon" always looks right.
 // Organisations are fictional.
+export const opportunityTypes = ['Job', 'Internship', 'Scholarship', 'Freelance', 'Event']
+
 export const opportunities = [
   // Jobs
   {

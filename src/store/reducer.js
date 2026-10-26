@@ -27,6 +27,18 @@ export function reducer(state, action) {
   switch (action.type) {
     case 'RESET_DEMO':
       return createInitialState()
+
+    // Saves or unsaves; dispatching it again is the Undo.
+    case 'TOGGLE_SAVED': {
+      const isSaved = state.savedOpportunityIds.includes(action.id)
+      return {
+        ...state,
+        savedOpportunityIds: isSaved
+          ? state.savedOpportunityIds.filter((id) => id !== action.id)
+          : [...state.savedOpportunityIds, action.id],
+      }
+    }
+
     default:
       return state
   }
