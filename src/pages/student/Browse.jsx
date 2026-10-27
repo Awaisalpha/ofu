@@ -8,6 +8,7 @@ import SortSelect from '../../components/opportunity/SortSelect'
 import Button from '../../components/ui/Button'
 import EmptyState from '../../components/ui/EmptyState'
 import Skeleton from '../../components/ui/Skeleton'
+import { opportunityTypes } from '../../data/opportunities'
 import { useSimulatedLoading } from '../../hooks/useSimulatedLoading'
 import { useApp } from '../../store/AppContext'
 import { filterOpportunities, sortOpportunities } from '../../utils/filters'
@@ -21,7 +22,8 @@ export default function Browse() {
   // Filters live in the URL, so they are still there after opening a card and going back.
   const [searchParams, setSearchParams] = useSearchParams()
   const searchText = searchParams.get('q') ?? ''
-  const type = searchParams.get('type') ?? 'All'
+  // The URL holds a lowercase slug (?type=internship); unknown values fall back to All.
+  const type = opportunityTypes.find((option) => option.toLowerCase() === searchParams.get('type')) ?? 'All'
   const sortBy = searchParams.get('sort') ?? 'closing-soonest'
   const hasActiveFilters = searchText !== '' || type !== 'All'
 
@@ -60,7 +62,7 @@ export default function Browse() {
           searchText={searchText}
           type={type}
           onSearchChange={(value) => updateParam('q', value, '')}
-          onTypeChange={(value) => updateParam('type', value, 'All')}
+          onTypeChange={(value) => updateParam('type', value.toLowerCase(), 'all')}
         />
       </div>
 

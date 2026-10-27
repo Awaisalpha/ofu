@@ -1,17 +1,26 @@
-import { Link } from 'react-router'
-import PagePlaceholder from '../../components/ui/PagePlaceholder'
+import HowItWorks from '../../components/landing/HowItWorks'
+import LandingFooter from '../../components/landing/LandingFooter'
+import LandingNav from '../../components/landing/LandingNav'
+import OpportunityTypeTiles from '../../components/landing/OpportunityTypeTiles'
+import ProblemVisual from '../../components/landing/ProblemVisual'
+import RoleCards from '../../components/landing/RoleCards'
+import SearchHero from '../../components/landing/SearchHero'
 
+// A photo banner with a search box, so visitors can start looking straight away.
 export default function Landing() {
   return (
-    <main className="mx-auto max-w-2xl p-8">
-      <PagePlaceholder title="Landing" milestone={2}>
-        <Link
-          to="/student/browse"
-          className="mt-6 inline-block rounded-card bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-        >
-          Try the demo
-        </Link>
-      </PagePlaceholder>
-    </main>
+    <>
+      <LandingNav />
+      <main id="main">
+        <SearchHero />
+        <div className="mx-auto max-w-6xl space-y-20 px-4 py-20 sm:px-6 sm:space-y-24">
+          <ProblemVisual />
+          <HowItWorks />
+          <OpportunityTypeTiles />
+          <RoleCards />
+        </div>
+      </main>
+      <LandingFooter />
+    </>
   )
 }

@@ -39,3 +39,10 @@
 body {
   @apply bg-canvas font-sans text-ink antialiased;
 }
+
+/* Smooth scrolling to the landing page sections, only for people who haven't asked for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

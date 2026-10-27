@@ -1,4 +1,9 @@
-import { daysLeft } from './dates'
+import { daysLeft, getDeadlineStatus } from './dates'
+
+// Approved and still open: what a student can apply to right now.
+export function isLiveOpportunity(opportunity) {
+  return opportunity.status === 'approved' && getDeadlineStatus(opportunity.deadline) !== 'closed'
+}
 
 export function filterOpportunities(opportunities, { searchText, type }) {
   const search = searchText.trim().toLowerCase()
