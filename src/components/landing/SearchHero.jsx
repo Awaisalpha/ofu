@@ -35,7 +35,8 @@ export default function SearchHero() {
       </picture>
       <div style={centreOverlay} className="absolute inset-0" />
 
-      <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 py-16 text-center sm:py-24">
+      {/* The top padding leaves room for the nav pill that sits over the photo. */}
+      <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 pt-32 pb-16 text-center sm:pt-36 sm:pb-24">
         <h1 className="text-4xl leading-[1.1] font-bold tracking-tight text-balance text-white text-shadow-hero sm:text-5xl">
           Every UCP opportunity, in one place
         </h1>
