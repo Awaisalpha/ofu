@@ -11,7 +11,8 @@ export const opportunities = [
     type: 'Job',
     organisation: 'Ravi Byte Labs',
     location: 'Gulberg, Lahore',
-    description: 'Build and maintain React interfaces for client dashboards. You will work closely with designers and backend developers, write clean components and fix UI bugs. Fresh graduates with a strong portfolio are welcome.',
+    description:
+      'Build and maintain React interfaces for client dashboards. You will work closely with designers and backend developers, write clean components and fix UI bugs.\n\nResponsibilities: turn Figma designs into responsive pages, connect screens to REST APIs, review pull requests from other juniors and help keep the shared component library tidy.\n\nRequirements: good knowledge of HTML, CSS and modern JavaScript, some experience with React, and a portfolio or GitHub profile with at least two projects. Fresh graduates are welcome.',
     stipend: 'PKR 90,000 / month',
     status: 'approved',
     rejectReason: '',
@@ -25,7 +26,8 @@ export const opportunities = [
     type: 'Job',
     organisation: 'Canal Softworks',
     location: 'Johar Town, Lahore',
-    description: 'Write and run manual and automated test cases for a web and mobile product. Knowledge of basic SQL and an eye for detail are a must.',
+    description:
+      'Write and run manual and automated test cases for a web and mobile product used by over 50,000 customers.\n\nResponsibilities: plan test cases for new features, report bugs with clear steps to reproduce, run regression tests before each release and help automate the most repeated checks.\n\nRequirements: basic SQL, an eye for detail and clear written English. Experience with Postman, Selenium or Cypress is a plus.',
     stipend: 'PKR 75,000 / month',
     status: 'approved',
     rejectReason: '',
@@ -39,7 +41,8 @@ export const opportunities = [
     type: 'Job',
     organisation: 'Mall Road Analytics',
     location: 'Remote',
-    description: 'Clean, analyse and visualise sales data for retail clients. Comfortable with spreadsheets and Python or R. Strong communication skills needed to present findings.',
+    description:
+      'Clean, analyse and visualise sales data for retail clients across Pakistan.\n\nResponsibilities: prepare weekly sales reports, build simple dashboards, find trends in customer data and present findings to account managers in plain language.\n\nRequirements: comfortable with spreadsheets and Python or R, a basic understanding of statistics, and strong communication skills. A degree in CS, statistics or economics is preferred.',
     stipend: '',
     status: 'approved',
     rejectReason: '',
@@ -53,7 +56,8 @@ export const opportunities = [
     type: 'Job',
     organisation: 'Shalimar Textiles Group',
     location: 'Model Town, Lahore',
-    description: 'A one-year rotational programme across supply chain, finance and operations for fresh BBA and BS graduates.',
+    description:
+      'A one-year rotational programme across supply chain, finance and operations for fresh BBA and BS graduates.\n\nResponsibilities: spend four months in each department, support managers with daily reports, take part in a cost-saving project and present your results to senior leadership at the end of the year.\n\nRequirements: a recent BBA or BS degree with a CGPA of 3.0 or above, good Excel skills and willingness to visit the factory in Kot Lakhpat twice a week.',
     stipend: 'PKR 70,000 / month',
     status: 'approved',
     rejectReason: '',
@@ -83,7 +87,8 @@ export const opportunities = [
     type: 'Internship',
     organisation: 'Pixel Bagh Studio',
     location: 'DHA Phase 5, Lahore',
-    description: 'Three-month internship designing screens in Figma, running small usability tests and preparing handoff files for developers.',
+    description:
+      'Three-month internship designing screens in Figma for a small studio that works with local startups.\n\nResponsibilities: design screens and simple prototypes, run small usability tests with five to eight users, and prepare clean handoff files for developers.\n\nRequirements: a portfolio with at least two UI projects, basic Figma skills and an interest in how people use apps. Final year and recently graduated students can apply.',
     stipend: 'PKR 30,000 / month',
     status: 'approved',
     rejectReason: '',
@@ -97,7 +102,8 @@ export const opportunities = [
     type: 'Internship',
     organisation: 'Canal Softworks',
     location: 'Johar Town, Lahore',
-    description: 'Join a product team for eight weeks and ship a real feature. Mentorship from senior engineers and a final demo day.',
+    description:
+      'Join a product team for eight weeks and ship a real feature that goes live to customers.\n\nWhat you will do: pair with a senior engineer, write and test code in a real codebase, join daily stand-ups and present your feature at the final demo day.\n\nRequirements: second or third year CS or SE students with one programming language they are comfortable in. Git basics are helpful but not required.',
     stipend: 'PKR 35,000 / month',
     status: 'approved',
     rejectReason: '',
@@ -111,7 +117,8 @@ export const opportunities = [
     type: 'Internship',
     organisation: 'Anarkali Media House',
     location: 'Remote',
-    description: 'Plan social media calendars, write captions and track campaign performance for small brands.',
+    description:
+      'Plan social media calendars, write captions and track campaign performance for small brands.\n\nResponsibilities: draft a monthly content calendar, write captions in English and Urdu, schedule posts and share a short performance report every Friday.\n\nRequirements: good writing skills, a feel for social media trends and a laptop with a stable internet connection. Fully remote, around 20 hours a week.',
     stipend: 'PKR 20,000 / month',
     status: 'approved',
     rejectReason: '',
@@ -125,7 +132,8 @@ export const opportunities = [
     type: 'Internship',
     organisation: 'Fortline Security',
     location: 'Gulberg, Lahore',
-    description: 'Assist the security team with vulnerability scans, log reviews and writing internal security guides.',
+    description:
+      'Assist the security team with vulnerability scans, log reviews and writing internal security guides.\n\nResponsibilities: run scheduled scans, sort findings by risk, review server logs for unusual activity and turn technical findings into simple guides for other staff.\n\nRequirements: basic networking and Linux knowledge, curiosity about how systems break, and a clean record, as a background check is part of the process.',
     stipend: '',
     status: 'approved',
     rejectReason: '',
@@ -139,7 +147,8 @@ export const opportunities = [
     type: 'Internship',
     organisation: 'Shalimar Textiles Group',
     location: 'Model Town, Lahore',
-    description: 'Support the accounts team with reconciliations, invoices and monthly reports. ACCA or BBA students preferred.',
+    description:
+      'Support the accounts team with reconciliations, invoices and monthly reports.\n\nResponsibilities: match bank statements with ledgers, prepare and file invoices, help with month-end closing and keep supplier records up to date.\n\nRequirements: ACCA or BBA students preferred, good Excel skills and attention to detail. Office-based in Model Town, five days a week.',
     stipend: 'PKR 25,000 / month',
     status: 'approved',
     rejectReason: '',
@@ -169,7 +178,8 @@ export const opportunities = [
     type: 'Scholarship',
     organisation: 'Noor Education Trust',
     location: 'Lahore',
-    description: 'Covers 50% of final year tuition for students with a CGPA of 3.5 or above. Requires a short statement of purpose.',
+    description:
+      'Covers 50% of final year tuition for students with a strong academic record.\n\nEligibility: final year students in any programme with a CGPA of 3.5 or above and no disciplinary record.\n\nHow to apply: submit your latest transcript and a short statement of purpose (around 500 words) explaining your goals after graduation. Shortlisted students will be invited to a 15-minute interview.',
     stipend: '50% tuition',
     status: 'approved',
     rejectReason: '',
@@ -183,7 +193,8 @@ export const opportunities = [
     type: 'Scholarship',
     organisation: 'Kinnow Foundation',
     location: 'Remote',
-    description: 'Supports female students in computing degrees with a one-time grant and a mentorship programme.',
+    description:
+      'Supports female students in computing degrees with a one-time grant and a six-month mentorship programme.\n\nWhat you get: a grant of PKR 150,000, monthly calls with a mentor working in the tech industry and an invitation to the annual Women in Tech meetup.\n\nEligibility: female students in CS, SE, IT or data science, in any year of study. Applicants write a short essay about a project they are proud of.',
     stipend: 'PKR 150,000 (one-time)',
     status: 'approved',
     rejectReason: '',
@@ -255,7 +266,8 @@ export const opportunities = [
     type: 'Freelance',
     organisation: 'Healwell Clinic',
     location: 'Remote',
-    description: 'Build a five-page WordPress site with an appointment request form. Must be mobile friendly.',
+    description:
+      'Build a five-page WordPress site for a small family clinic, with an appointment request form.\n\nDeliverables: Home, About, Services, Doctors and Contact pages, a working appointment form that emails the front desk, and a short video showing staff how to update content.\n\nRequirements: past WordPress work you can link to, and the site must be mobile friendly and load quickly. Expected timeline is three weeks.',
     stipend: 'PKR 40,000 (fixed)',
     status: 'approved',
     rejectReason: '',
@@ -299,7 +311,8 @@ export const opportunities = [
     type: 'Event',
     organisation: 'Campus Career Office',
     location: 'Johar Town, Lahore',
-    description: 'Meet recruiters from over 30 companies. Bring printed CVs. Registration is required for entry.',
+    description:
+      'Meet recruiters from over 30 companies hiring for jobs and internships in software, business and design.\n\nWhat to expect: company stalls from 10 am to 4 pm, short talks on interview tips, and on-the-spot interviews with some employers.\n\nBefore you come: register online for an entry pass, bring several printed CVs and dress formally. Entry is free for all students and recent graduates.',
     stipend: '',
     status: 'approved',
     rejectReason: '',
@@ -313,7 +326,8 @@ export const opportunities = [
     type: 'Event',
     organisation: 'Code Circle Lahore',
     location: 'Gulberg, Lahore',
-    description: 'Teams of up to four build solutions for urban problems. Cash prizes for the top three teams.',
+    description:
+      'Teams of up to four build solutions for urban problems like traffic, waste and water in 24 hours.\n\nHow it works: themes are announced at the opening, mentors visit each team during the night, and every team gets five minutes to demo to the judges the next morning.\n\nPrizes and rules: cash prizes for the top three teams. Students from any university can join, and solo applicants will be matched into teams.',
     stipend: 'Prizes up to PKR 200,000',
     status: 'approved',
     rejectReason: '',

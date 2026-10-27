@@ -34,7 +34,7 @@ export default function Toast({ toast, onDismiss }) {
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
-      className="flex w-full items-center gap-3 rounded-md bg-stone-900 py-2 pr-2 pl-4 text-sm text-white shadow-lg sm:w-80"
+      className="flex w-full items-center gap-3 rounded-card bg-ink py-2 pr-2 pl-4 text-sm text-white shadow-float sm:w-80"
     >
       <p className="flex-1">{toast.message}</p>
 
@@ -42,7 +42,7 @@ export default function Toast({ toast, onDismiss }) {
         <button
           type="button"
           onClick={handleAction}
-          className="rounded px-2 py-1 font-semibold text-blue-300 hover:bg-stone-700 focus-visible:outline-2 focus-visible:outline-blue-300"
+          className="rounded px-2 py-1 font-semibold text-accent-soft hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-accent-soft"
         >
           {toast.actionLabel}
         </button>
@@ -52,7 +52,7 @@ export default function Toast({ toast, onDismiss }) {
         type="button"
         onClick={() => onDismiss(toast.id)}
         aria-label="Dismiss notification"
-        className="rounded p-1 text-stone-300 hover:bg-stone-700 hover:text-white focus-visible:outline-2 focus-visible:outline-blue-300"
+        className="rounded p-1 text-white/80 hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-accent-soft"
       >
         <X size={16} aria-hidden="true" />
       </button>

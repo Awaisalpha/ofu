@@ -1,85 +1,56 @@
-import { ChevronDown, RotateCcw } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { RotateCcw } from 'lucide-react'
 import { useNavigate } from 'react-router'
 import { useApp } from '../../store/AppContext'
 import { roleHomePaths, roleLabels } from './navItems'
 
+const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent'
+
+// "View as" segmented control plus the Reset demo data button.
 export default function RoleSwitcher({ role }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const menuRef = useRef(null)
   const navigate = useNavigate()
   const { dispatch } = useApp()
 
-  // Close the menu on Esc or a click outside it.
-  useEffect(() => {
-    if (!isOpen) return
-
-    function handleKeyDown(event) {
-      if (event.key === 'Escape') setIsOpen(false)
-    }
-    function handleClick(event) {
-      if (!menuRef.current.contains(event.target)) setIsOpen(false)
-    }
-
-    document.addEventListener('keydown', handleKeyDown)
-    document.addEventListener('mousedown', handleClick)
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-      document.removeEventListener('mousedown', handleClick)
-    }
-  }, [isOpen])
-
   function switchRole(newRole) {
-    setIsOpen(false)
-    navigate(roleHomePaths[newRole])
+    if (newRole !== role) navigate(roleHomePaths[newRole])
   }
 
   function resetDemoData() {
-    setIsOpen(false)
     if (window.confirm('Reset all demo data? Your changes will be lost.')) {
       dispatch({ type: 'RESET_DEMO' })
     }
   }
 
   return (
-    <div ref={menuRef} className="relative">
+    <div className="flex items-center gap-2">
+      <span id="view-as-label" className="hidden text-xs font-medium text-muted sm:inline">
+        View as
+      </span>
+      <div role="group" aria-labelledby="view-as-label" className="flex rounded-card border border-line bg-canvas p-0.5">
+        {Object.keys(roleLabels).map((roleKey) => (
+          <button
+            key={roleKey}
+            type="button"
+            onClick={() => switchRole(roleKey)}
+            aria-pressed={roleKey === role}
+            className={`rounded px-2.5 py-1 text-sm ${focusRing} ${
+              roleKey === role
+                ? 'bg-surface font-semibold text-accent shadow-[0_0_0_1px_var(--color-line)]'
+                : 'font-medium text-muted hover:text-ink'
+            }`}
+          >
+            {roleLabels[roleKey]}
+          </button>
+        ))}
+      </div>
       <button
         type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        aria-haspopup="true"
-        aria-expanded={isOpen}
-        className="flex items-center gap-1 rounded-md border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium hover:bg-stone-100 focus-visible:outline-2 focus-visible:outline-blue-600"
+        onClick={resetDemoData}
+        aria-label="Reset demo data"
+        title="Reset demo data"
+        className={`grid size-8 place-items-center rounded-card text-muted hover:bg-canvas hover:text-ink ${focusRing}`}
       >
-        View as: {roleLabels[role]}
-        <ChevronDown size={16} aria-hidden="true" />
+        <RotateCcw size={16} aria-hidden="true" />
       </button>
-
-      {isOpen && (
-        <div className="absolute right-0 z-10 mt-2 w-52 rounded-md border border-stone-200 bg-white py-1 shadow-lg">
-          {Object.keys(roleLabels).map((roleKey) => (
-            <button
-              key={roleKey}
-              type="button"
-              onClick={() => switchRole(roleKey)}
-              aria-current={roleKey === role ? 'true' : undefined}
-              className={`block w-full px-4 py-2 text-left text-sm hover:bg-stone-100 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blue-600 ${
-                roleKey === role ? 'font-semibold' : ''
-              }`}
-            >
-              {roleLabels[roleKey]}
-            </button>
-          ))}
-          <hr className="my-1 border-stone-200" />
-          <button
-            type="button"
-            onClick={resetDemoData}
-            className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-red-700 hover:bg-stone-100 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blue-600"
-          >
-            <RotateCcw size={16} aria-hidden="true" />
-            Reset demo data
-          </button>
-        </div>
-      )}
     </div>
   )
 }

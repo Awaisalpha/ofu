@@ -5,7 +5,7 @@ import Button from './Button'
 
 const COPIED_DURATION_MS = 2000
 
-export default function CopyButton() {
+export default function CopyButton({ className = '' }) {
   const [isCopied, setIsCopied] = useState(false)
   const { showToast } = useToast()
 
@@ -27,11 +27,11 @@ export default function CopyButton() {
   }
 
   return (
-    <Button variant="secondary" onClick={copyLink}>
+    <Button variant="secondary" onClick={copyLink} className={className}>
       {isCopied ? (
-        <Check size={16} className="text-green-700" aria-hidden="true" />
+        <Check size={15} className="text-accent" aria-hidden="true" />
       ) : (
-        <Link size={16} aria-hidden="true" />
+        <Link size={15} aria-hidden="true" />
       )}
       <span aria-live="polite">{isCopied ? 'Link copied' : 'Copy link'}</span>
     </Button>

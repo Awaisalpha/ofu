@@ -4,9 +4,9 @@ import Badge from '../ui/Badge'
 
 // Each status has its own icon and text, so it never relies on colour alone.
 const statusStyles = {
-  open: { label: 'Open', icon: CircleCheck, className: 'bg-green-100 text-green-800' },
-  'closing-soon': { label: 'Closing soon', icon: Clock, className: 'bg-amber-100 text-amber-900' },
-  closed: { label: 'Closed', icon: CircleX, className: 'bg-stone-200 text-stone-700' },
+  open: { label: 'Open', icon: CircleCheck, className: 'bg-open-soft text-open' },
+  'closing-soon': { label: 'Closing soon', icon: Clock, className: 'bg-closing-soft text-closing' },
+  closed: { label: 'Closed', icon: CircleX, className: 'bg-closed-soft text-closed' },
 }
 
 export default function DeadlineBadge({ deadline }) {
@@ -15,7 +15,7 @@ export default function DeadlineBadge({ deadline }) {
 
   return (
     <Badge className={className}>
-      <Icon size={14} aria-hidden="true" />
+      <Icon size={13} aria-hidden="true" />
       {status === 'closed' ? label : `${label} · ${describeDaysLeft(deadline)}`}
     </Badge>
   )

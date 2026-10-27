@@ -1,5 +1,38 @@
 @import "tailwindcss";
 
+/* Design tokens. Components use these names (bg-surface, text-muted, rounded-card...)
+   and never raw hex values. Text pairs are checked for WCAG AA contrast. */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: #f6f7f9;
+  --color-surface: #ffffff;
+  --color-ink: #0f172a;
+  --color-muted: #475569;
+  --color-line: #e2e5ea;
+  /* Form control borders need 3:1 against the surface. */
+  --color-line-strong: #8b94a3;
+
+  --color-accent: #1e40af;
+  --color-accent-hover: #1a3793;
+  --color-accent-strong: #1e3a8a;
+  --color-accent-soft: #e8eefb;
+
+  --color-open: #14633a;
+  --color-open-soft: #e7f6ee;
+  --color-closing: #7a3e00;
+  --color-closing-soft: #fef0d6;
+  --color-closed: #475569;
+  --color-closed-soft: #eef0f3;
+
+  --radius-card: 0.375rem;
+
+  --shadow-float: 0 1px 2px rgb(15 23 42 / 0.06), 0 8px 24px rgb(15 23 42 / 0.1);
+
+  /* Extra legibility for white text on the Browse hero photo. */
+  --text-shadow-hero: 0 1px 2px rgb(15 23 42 / 0.6), 0 0 16px rgb(15 23 42 / 0.45);
+}
+
 body {
-  @apply bg-stone-50 text-stone-900 antialiased;
+  @apply bg-canvas font-sans text-ink antialiased;
 }

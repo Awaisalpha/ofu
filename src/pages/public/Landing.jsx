@@ -7,7 +7,7 @@ export default function Landing() {
       <PagePlaceholder title="Landing" milestone={2}>
         <Link
           to="/student/browse"
-          className="mt-6 inline-block rounded-md bg-stone-900 px-4 py-2 text-sm font-medium text-white hover:bg-stone-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          className="mt-6 inline-block rounded-card bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           Try the demo
         </Link>

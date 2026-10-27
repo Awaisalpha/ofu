@@ -6,7 +6,7 @@ export default function Overview() {
 
   return (
     <PagePlaceholder title="Overview" milestone={3}>
-      <p className="mt-4 text-sm text-stone-500">
+      <p className="mt-4 text-sm text-muted">
         {state.users.length} users, {state.opportunities.length} opportunities,{' '}
         {state.applications.length} applications in the store.
       </p>

@@ -11,7 +11,6 @@ import Browse from './pages/student/Browse'
 import MyApplications from './pages/student/MyApplications'
 import OpportunityDetail from './pages/student/OpportunityDetail'
 import Saved from './pages/student/Saved'
-
 // The role comes from the URL, so a refresh keeps it and the nav always matches the page.
 export default function App() {
   return (

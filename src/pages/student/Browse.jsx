@@ -1,8 +1,10 @@
 import { SearchX } from 'lucide-react'
 import { useSearchParams } from 'react-router'
+import BrowseHero from '../../components/opportunity/BrowseHero'
 import FilterBar from '../../components/opportunity/FilterBar'
 import OpportunityCard from '../../components/opportunity/OpportunityCard'
 import OpportunityCardSkeleton from '../../components/opportunity/OpportunityCardSkeleton'
+import SortSelect from '../../components/opportunity/SortSelect'
 import Button from '../../components/ui/Button'
 import EmptyState from '../../components/ui/EmptyState'
 import Skeleton from '../../components/ui/Skeleton'
@@ -10,7 +12,7 @@ import { useSimulatedLoading } from '../../hooks/useSimulatedLoading'
 import { useApp } from '../../store/AppContext'
 import { filterOpportunities, sortOpportunities } from '../../utils/filters'
 
-const SKELETON_CARD_COUNT = 6
+const SKELETON_CARD_COUNT = 8
 
 export default function Browse() {
   const { state } = useApp()
@@ -50,50 +52,52 @@ export default function Browse() {
 
   return (
     <section>
-      <h1 className="text-2xl font-bold">Browse opportunities</h1>
-      <p className="mt-1 text-stone-600">Verified jobs, internships, scholarships, freelance work and events.</p>
+      <BrowseHero />
 
-      <div className="mt-6">
+      {/* Floats over the bottom edge of the hero. */}
+      <div className="relative mx-2 -mt-10 rounded-card bg-surface p-3 shadow-float sm:mx-6 sm:p-4">
         <FilterBar
           searchText={searchText}
           type={type}
-          sortBy={sortBy}
           onSearchChange={(value) => updateParam('q', value, '')}
           onTypeChange={(value) => updateParam('type', value, 'All')}
-          onSortChange={(value) => updateParam('sort', value, 'closing-soonest')}
         />
       </div>
 
-      <div className="mt-6 flex h-9 items-center justify-between gap-4">
-        {isLoading ? (
-          <Skeleton className="h-5 w-44" />
-        ) : (
-          <p aria-live="polite" className="text-sm text-stone-600">
-            Showing {resultCount} {resultCount === 1 ? 'opportunity' : 'opportunities'}
-          </p>
-        )}
-        {hasActiveFilters && (
-          <Button variant="secondary" onClick={clearFilters}>
-            Clear filters
-          </Button>
-        )}
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex min-h-9 items-center gap-3">
+          {isLoading ? (
+            <Skeleton className="h-4 w-28" />
+          ) : (
+            <p aria-live="polite" className="text-sm text-muted">
+              <span className="font-semibold text-ink tabular-nums">{resultCount}</span>{' '}
+              {resultCount === 1 ? 'result' : 'results'}
+            </p>
+          )}
+          {hasActiveFilters && (
+            <Button variant="secondary" onClick={clearFilters}>
+              Clear filters
+            </Button>
+          )}
+        </div>
+        <SortSelect sortBy={sortBy} onSortChange={(value) => updateParam('sort', value, 'closing-soonest')} />
       </div>
 
       <div className="mt-4">
         {isLoading ? (
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {Array.from({ length: SKELETON_CARD_COUNT }, (_, index) => (
               <OpportunityCardSkeleton key={index} />
             ))}
           </div>
         ) : resultCount === 0 ? (
-          <EmptyState icon={SearchX} message="No opportunities match your search.">
+          <EmptyState icon={SearchX} message="No opportunities match your search. Try another word or type.">
             <Button variant="secondary" onClick={clearFilters}>
               Clear filters
             </Button>
           </EmptyState>
         ) : (
-          <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {filteredOpportunities.map((opportunity) => (
               <li key={opportunity.id}>
                 <OpportunityCard opportunity={opportunity} />
