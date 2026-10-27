@@ -1,16 +1,22 @@
-import { ArrowLeft, Banknote, Bookmark, BookmarkCheck, CalendarClock, FileQuestion, MapPin } from 'lucide-react'
-import { Link, useParams } from 'react-router'
+import { ArrowLeft, Banknote, Bookmark, BookmarkCheck, CalendarClock, Check, FileQuestion, MapPin } from 'lucide-react'
+import { useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router'
+import ApplyForm from '../../components/opportunity/ApplyForm'
 import DeadlineBadge from '../../components/opportunity/DeadlineBadge'
 import ExpandableText from '../../components/opportunity/ExpandableText'
 import OpportunityDetailSkeleton from '../../components/opportunity/OpportunityDetailSkeleton'
 import Badge from '../../components/ui/Badge'
 import Button from '../../components/ui/Button'
 import CopyButton from '../../components/ui/CopyButton'
+import Dialog from '../../components/ui/Dialog'
 import EmptyState from '../../components/ui/EmptyState'
+import { CURRENT_STUDENT_ID } from '../../data/users'
 import { useSimulatedLoading } from '../../hooks/useSimulatedLoading'
+import { useToggleSaved } from '../../hooks/useToggleSaved'
 import { useApp } from '../../store/AppContext'
+import { getStudentApplications } from '../../store/reducer'
 import { useToast } from '../../store/ToastContext'
-import { describeDaysLeft, formatDate, getDeadlineStatus } from '../../utils/dates'
+import { dateFromToday, describeDaysLeft, formatDate, getDeadlineStatus } from '../../utils/dates'
 
 function Fact({ icon: Icon, label, children }) {
   return (
@@ -28,7 +34,10 @@ export default function OpportunityDetail() {
   const { id } = useParams()
   const { state, dispatch } = useApp()
   const { showToast } = useToast()
+  const toggleSaved = useToggleSaved()
+  const navigate = useNavigate()
   const isLoading = useSimulatedLoading()
+  const [isApplyOpen, setIsApplyOpen] = useState(false)
 
   // Students only ever see approved opportunities, even with a direct link.
   const opportunity = state.opportunities.find((item) => item.id === id && item.status === 'approved')
@@ -67,19 +76,26 @@ export default function OpportunityDetail() {
 
   const isSaved = state.savedOpportunityIds.includes(opportunity.id)
   const isClosed = getDeadlineStatus(opportunity.deadline) === 'closed'
+  const hasApplied = getStudentApplications(state).some((application) => application.opportunityId === opportunity.id)
 
-  function toggleSaved() {
-    dispatch({ type: 'TOGGLE_SAVED', id: opportunity.id })
-    showToast({
-      message: isSaved ? 'Removed from saved' : 'Saved to your list',
-      actionLabel: 'Undo',
-      onAction: () => dispatch({ type: 'TOGGLE_SAVED', id: opportunity.id }),
+  function submitApplication({ coverNote, portfolioUrl }) {
+    dispatch({
+      type: 'ADD_APPLICATION',
+      application: {
+        opportunityId: opportunity.id,
+        studentId: CURRENT_STUDENT_ID,
+        coverNote,
+        portfolioUrl,
+        status: 'Submitted',
+        appliedAt: dateFromToday(0),
+      },
     })
-  }
-
-  // Temporary until the apply form is built.
-  function apply() {
-    showToast({ message: 'The apply form is coming in the next step.' })
+    setIsApplyOpen(false)
+    showToast({
+      message: 'Application sent',
+      actionLabel: 'View',
+      onAction: () => navigate('/student/applications'),
+    })
   }
 
   return (
@@ -125,31 +141,60 @@ export default function OpportunityDetail() {
               {isClosed ? 'Closed on' : 'Apply by'}{' '}
               <span className="font-semibold text-ink">{formatDate(opportunity.deadline)}</span>
             </p>
-            {isClosed && (
-              <p id="apply-closed-reason" className="mt-0.5 text-xs text-muted">
-                Applications for this opportunity are closed.
+            {hasApplied ? (
+              <p id="apply-done-reason" className="mt-0.5 text-xs text-muted">
+                You've already applied.{' '}
+                <Link
+                  to="/student/applications"
+                  className="rounded font-medium text-accent underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                >
+                  See your applications
+                </Link>
               </p>
+            ) : (
+              isClosed && (
+                <p id="apply-closed-reason" className="mt-0.5 text-xs text-muted">
+                  Applications for this opportunity are closed.
+                </p>
+              )
             )}
           </div>
 
           {/* On mobile the buttons stack full width with Apply first. */}
           <div className="flex flex-col gap-2 sm:flex-row">
-            <Button variant="secondary" onClick={toggleSaved} aria-pressed={isSaved}>
+            <Button variant="secondary" onClick={() => toggleSaved(opportunity.id)} aria-pressed={isSaved}>
               {isSaved ? <BookmarkCheck size={15} aria-hidden="true" /> : <Bookmark size={15} aria-hidden="true" />}
               {isSaved ? 'Saved' : 'Save'}
             </Button>
             <CopyButton />
-            <Button
-              onClick={apply}
-              disabled={isClosed}
-              aria-describedby={isClosed ? 'apply-closed-reason' : undefined}
-              className="max-sm:order-first"
-            >
-              Apply
-            </Button>
+            {hasApplied ? (
+              // aria-disabled (not disabled) keeps it focusable, so focus can land here when the dialog closes.
+              <Button aria-disabled="true" aria-describedby="apply-done-reason" className="max-sm:order-first">
+                <Check size={15} aria-hidden="true" />
+                Applied
+              </Button>
+            ) : (
+              <Button
+                onClick={() => setIsApplyOpen(true)}
+                disabled={isClosed}
+                aria-describedby={isClosed ? 'apply-closed-reason' : undefined}
+                className="max-sm:order-first"
+              >
+                Apply
+              </Button>
+            )}
           </div>
         </footer>
       </article>
+
+      <Dialog
+        open={isApplyOpen}
+        onClose={() => setIsApplyOpen(false)}
+        title={`Apply to ${opportunity.title}`}
+        description={opportunity.organisation}
+      >
+        <ApplyForm onSubmit={submitApplication} onCancel={() => setIsApplyOpen(false)} />
+      </Dialog>
     </section>
   )
 }

@@ -3,7 +3,7 @@
 export default function Input({ className = 'px-3', ...props }) {
   return (
     <input
-      className={`h-9 w-full rounded-card border border-line-strong bg-surface text-base placeholder:text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:text-sm ${className}`}
+      className={`h-9 w-full rounded-card border border-line-strong bg-surface text-base placeholder:text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent aria-invalid:border-danger sm:text-sm ${className}`}
       {...props}
     />
   )

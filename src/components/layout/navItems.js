@@ -25,8 +25,8 @@ export const roleHomePaths = {
 export const navItemsByRole = {
   student: [
     { label: 'Browse', to: '/student/browse', icon: Search },
-    { label: 'Saved', to: '/student/saved', icon: Bookmark },
-    { label: 'Applications', to: '/student/applications', icon: FileText },
+    { label: 'Saved', to: '/student/saved', icon: Bookmark, countKey: 'saved' },
+    { label: 'Applications', to: '/student/applications', icon: FileText, countKey: 'applications' },
   ],
   alumni: [
     { label: 'Post', to: '/alumni/post', icon: PlusCircle },
