@@ -8,8 +8,10 @@ import SaveButton from './SaveButton'
 // Fixed line heights keep every card the same size as OpportunityCardSkeleton.
 // The title link stretches over the whole card (its ::after covers it), so the card is
 // clickable while the save button stays a separate control, not nested inside the link.
-export default function OpportunityCard({ opportunity }) {
+// headingLevel lets a page that already has h2 sections (the landing page) use h3 titles.
+export default function OpportunityCard({ opportunity, headingLevel = 2 }) {
   const isClosed = getDeadlineStatus(opportunity.deadline) === 'closed'
+  const Heading = `h${headingLevel}`
 
   return (
     <article
@@ -22,7 +24,7 @@ export default function OpportunityCard({ opportunity }) {
         <span className="truncate text-xs font-medium text-muted">{opportunity.organisation}</span>
       </div>
       {/* title shows the full text on hover; the detail page always has it. */}
-      <h2
+      <Heading
         title={opportunity.title}
         className={`mt-2 line-clamp-2 h-10 text-[15px] leading-5 font-semibold ${isClosed ? 'text-muted' : ''}`}
       >
@@ -32,7 +34,7 @@ export default function OpportunityCard({ opportunity }) {
         >
           {opportunity.title}
         </Link>
-      </h2>
+      </Heading>
       <div className="mt-2 space-y-0.5 text-[13px] text-muted">
         <p className="flex h-5 items-center gap-1.5">
           <MapPin size={13} className="shrink-0" aria-hidden="true" />

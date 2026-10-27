@@ -1,6 +1,6 @@
 import { Briefcase, CalendarDays, GraduationCap, Laptop, PenTool } from 'lucide-react'
 
-// One entry per opportunity type for the landing page tiles and chips.
+// One entry per opportunity type for the landing page chips.
 // "to" opens student Browse already filtered by that type.
 export const typeLinks = [
   { type: 'Job', label: 'Jobs', icon: Briefcase, to: '/student/browse?type=job' },

@@ -4,8 +4,8 @@ import LahoreClock from './LahoreClock'
 
 const sectionLinks = [
   { label: 'How it works', href: '#how-it-works' },
-  { label: 'Opportunity types', href: '#opportunity-types' },
-  { label: 'Try a role', href: '#try-a-role' },
+  { label: 'Closing soon', href: '#closing-soon' },
+  { label: 'FAQ', href: '#faq' },
 ]
 
 const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent'

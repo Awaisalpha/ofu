@@ -24,7 +24,8 @@ export default function Browse() {
   const searchText = searchParams.get('q') ?? ''
   // The URL holds a lowercase slug (?type=internship); unknown values fall back to All.
   const type = opportunityTypes.find((option) => option.toLowerCase() === searchParams.get('type')) ?? 'All'
-  const sortBy = searchParams.get('sort') ?? 'closing-soonest'
+  // ?sort=newest or the default; unknown values fall back to closing soonest.
+  const sortBy = searchParams.get('sort') === 'newest' ? 'newest' : 'closing-soonest'
   const hasActiveFilters = searchText !== '' || type !== 'All'
 
   function updateParam(key, value, defaultValue) {
