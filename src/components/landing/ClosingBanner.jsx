@@ -1,29 +1,27 @@
 import { ChevronRight } from 'lucide-react'
 import { Link } from 'react-router'
 
-// White text on the accent passes AA (about 8.7:1). The focus ring is white because an
-// accent ring would disappear against the accent panel.
+// "already here" sits on a solid accent block. White on the accent passes AA (about 8.7:1).
+// box-decoration-clone repeats the padding on each line if the words wrap.
 export default function ClosingBanner() {
   return (
-    <section
-      aria-labelledby="closing-banner-heading"
-      className="rounded-card bg-accent px-6 py-12 text-center text-white sm:px-10 sm:py-16"
-    >
+    <section aria-labelledby="closing-banner-heading" className="py-16 text-center sm:py-24">
       <h2
         id="closing-banner-heading"
-        className="mx-auto max-w-2xl text-2xl leading-tight font-semibold tracking-tight text-balance sm:text-3xl"
+        className="mx-auto max-w-3xl text-3xl leading-[1.1] font-bold tracking-[-0.02em] text-balance text-ink sm:text-[2.75rem]"
       >
-        Your next opportunity is already here
+        Your next opportunity is{' '}
+        <span className="box-decoration-clone rounded-[2px] bg-accent px-1.5 text-white">already here</span>
       </h2>
-      <p className="mx-auto mt-3 max-w-[50ch] text-base text-pretty text-white/90">
+      <p className="mx-auto mt-4 max-w-[50ch] text-base text-pretty text-muted sm:text-lg">
         Verified jobs, internships, scholarships and events, all in one place.
       </p>
       <Link
         to="/student/browse"
-        className="mt-8 inline-flex h-11 items-center gap-1.5 rounded-full bg-surface pr-4 pl-5 text-sm font-semibold text-accent hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        className="mt-8 inline-flex h-11 items-center gap-1.5 rounded-full bg-accent pr-4 pl-5 text-base font-semibold text-white hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         Try the demo
-        <ChevronRight size={16} aria-hidden="true" />
+        <ChevronRight size={18} strokeWidth={2.25} aria-hidden="true" />
       </Link>
     </section>
   )
