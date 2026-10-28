@@ -4,7 +4,7 @@ import ApplicationRow from '../../components/opportunity/ApplicationRow'
 import Button from '../../components/ui/Button'
 import ButtonLink from '../../components/ui/ButtonLink'
 import EmptyState from '../../components/ui/EmptyState'
-import StatusFilterChips from '../../components/ui/StatusFilterChips'
+import StatusTabs from '../../components/ui/StatusTabs'
 import { useApp } from '../../store/AppContext'
 import { getStudentApplications } from '../../store/reducer'
 
@@ -61,7 +61,7 @@ export default function MyApplications() {
       ) : (
         <>
           <div className="mt-4">
-            <StatusFilterChips
+            <StatusTabs
               label="Filter by status"
               options={STATUS_FILTERS.map(({ status, icon }) => ({
                 value: status,

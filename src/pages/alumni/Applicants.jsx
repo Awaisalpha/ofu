@@ -12,15 +12,20 @@ export default function Applicants() {
   const { state, dispatch } = useApp()
   const { showToast } = useToast()
 
-  // The chosen post lives in the URL, so going back keeps it.
+  // The chosen post lives in the URL (?post=ID), so My posts can link straight to it
+  // and going back keeps it.
   const [searchParams, setSearchParams] = useSearchParams()
-  const postFilter = searchParams.get('post') ?? 'all'
+  const alumniPosts = getAlumniPosts(state)
+  const requestedPost = searchParams.get('post')
+  // An id that isn't one of this alumnus's posts falls back to All posts.
+  const postFilter = alumniPosts.some((post) => post.id === requestedPost) ? requestedPost : 'all'
 
   function changeFilter(postId) {
     setSearchParams(postId === 'all' ? {} : { post: postId }, { replace: true })
   }
 
-  const approvedPosts = getAlumniPosts(state).filter((post) => post.status === 'approved')
+  // Approved posts, plus the linked post if it isn't approved, so the menu always shows the current choice.
+  const filterPosts = alumniPosts.filter((post) => post.status === 'approved' || post.id === postFilter)
 
   // Newest first. Not grouped by status, so a card stays in place after Accept or Reject.
   const applicants = getAlumniApplications(state)
@@ -59,7 +64,7 @@ export default function Applicants() {
             className="h-9 min-w-0 flex-1 rounded-card border border-line-strong bg-surface px-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:max-w-72 sm:text-sm"
           >
             <option value="all">All posts</option>
-            {approvedPosts.map((post) => (
+            {filterPosts.map((post) => (
               <option key={post.id} value={post.id}>
                 {post.title}
               </option>

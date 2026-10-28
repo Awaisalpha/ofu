@@ -5,7 +5,7 @@ import UserTable from '../../components/admin/UserTable'
 import Button from '../../components/ui/Button'
 import EmptyState from '../../components/ui/EmptyState'
 import Input from '../../components/ui/Input'
-import StatusFilterChips from '../../components/ui/StatusFilterChips'
+import StatusTabs from '../../components/ui/StatusTabs'
 import { CURRENT_ADMIN_ID } from '../../data/users'
 import { useApp } from '../../store/AppContext'
 import { useToast } from '../../store/ToastContext'
@@ -73,7 +73,7 @@ export default function Users() {
             className="pr-3 pl-9"
           />
         </div>
-        <StatusFilterChips
+        <StatusTabs
           label="Filter by role"
           options={ROLE_FILTERS.map((filter) => ({ ...filter, count: countFor(filter.value) }))}
           selected={roleFilter}

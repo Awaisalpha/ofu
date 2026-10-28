@@ -1,9 +1,10 @@
-import { ArrowLeft, Banknote, Bookmark, BookmarkCheck, CalendarClock, Check, FileQuestion, MapPin } from 'lucide-react'
+import { ArrowLeft, Bookmark, BookmarkCheck, Check, FileQuestion } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
 import ApplyForm from '../../components/opportunity/ApplyForm'
 import DeadlineBadge from '../../components/opportunity/DeadlineBadge'
 import ExpandableText from '../../components/opportunity/ExpandableText'
+import KeyFacts from '../../components/opportunity/KeyFacts'
 import OpportunityDetailSkeleton from '../../components/opportunity/OpportunityDetailSkeleton'
 import Badge from '../../components/ui/Badge'
 import Button from '../../components/ui/Button'
@@ -16,19 +17,7 @@ import { useToggleSaved } from '../../hooks/useToggleSaved'
 import { useApp } from '../../store/AppContext'
 import { getStudentApplications } from '../../store/reducer'
 import { useToast } from '../../store/ToastContext'
-import { dateFromToday, describeDaysLeft, formatDate, getDeadlineStatus } from '../../utils/dates'
-
-function Fact({ icon: Icon, label, children }) {
-  return (
-    <div className="px-5 py-3 sm:px-6">
-      <dt className="flex items-center gap-1.5 text-xs font-medium text-muted">
-        <Icon size={13} aria-hidden="true" />
-        {label}
-      </dt>
-      <dd className="mt-0.5 text-sm font-semibold">{children}</dd>
-    </div>
-  )
-}
+import { dateFromToday, formatDate, getDeadlineStatus } from '../../utils/dates'
 
 export default function OpportunityDetail() {
   const { id } = useParams()
@@ -112,20 +101,7 @@ export default function OpportunityDetail() {
           <p className="mt-1 text-sm font-medium text-muted">{opportunity.organisation}</p>
         </header>
 
-        <dl className="grid divide-y divide-line border-y border-line bg-canvas sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          <Fact icon={MapPin} label="Location">
-            {opportunity.location}
-          </Fact>
-          <Fact icon={CalendarClock} label={isClosed ? 'Closed on' : 'Deadline'}>
-            {formatDate(opportunity.deadline)}
-            <span className="ml-1.5 font-normal text-muted">· {describeDaysLeft(opportunity.deadline)}</span>
-          </Fact>
-          {opportunity.stipend && (
-            <Fact icon={Banknote} label="Stipend / reward">
-              {opportunity.stipend}
-            </Fact>
-          )}
-        </dl>
+        <KeyFacts opportunity={opportunity} />
 
         <div className="p-5 sm:p-6">
           <h2 className="text-sm font-semibold">Description</h2>

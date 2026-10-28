@@ -34,7 +34,9 @@ function describedBy(...ids) {
 
 // Same rules as ApplyForm: errors appear when a field is left, and update on every
 // keystroke once shown, so they disappear as soon as the value is fixed.
-export default function PostOpportunityForm({ defaultOrganisation, onSubmit }) {
+// initialValues pre-fills the form, e.g. from a rejected post being fixed. Clear form
+// still empties it completely.
+export default function PostOpportunityForm({ defaultOrganisation, initialValues, onSubmit }) {
   const emptyValues = {
     title: '',
     type: '',
@@ -44,10 +46,13 @@ export default function PostOpportunityForm({ defaultOrganisation, onSubmit }) {
     stipend: '',
     description: '',
   }
-  const [values, setValues] = useState(emptyValues)
+  const startsRemote = initialValues?.location === 'Remote'
+  const [values, setValues] = useState(
+    initialValues ? { ...initialValues, location: startsRemote ? '' : initialValues.location } : emptyValues,
+  )
   const [errors, setErrors] = useState({})
   // The typed location is kept while Remote is ticked, so unticking brings it back.
-  const [isRemote, setIsRemote] = useState(false)
+  const [isRemote, setIsRemote] = useState(startsRemote)
   const fieldRefs = useRef({})
 
   const currentValues = { ...values, location: isRemote ? 'Remote' : values.location }

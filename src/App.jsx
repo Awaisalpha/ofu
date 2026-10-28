@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router'
 import AppShell from './components/layout/AppShell'
+import AlumniPostDetail from './pages/alumni/AlumniPostDetail'
 import Applicants from './pages/alumni/Applicants'
 import MyPosts from './pages/alumni/MyPosts'
 import PostOpportunity from './pages/alumni/PostOpportunity'
@@ -29,6 +30,7 @@ export default function App() {
         <Route index element={<Navigate to="post" replace />} />
         <Route path="post" element={<PostOpportunity />} />
         <Route path="posts" element={<MyPosts />} />
+        <Route path="posts/:id" element={<AlumniPostDetail />} />
         <Route path="applicants" element={<Applicants />} />
       </Route>
 

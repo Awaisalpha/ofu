@@ -4,6 +4,8 @@ const variantClasses = {
   primary:
     'bg-accent text-white not-aria-disabled:hover:bg-accent-hover disabled:bg-line disabled:text-muted aria-disabled:bg-line aria-disabled:text-muted',
   secondary: 'border border-line bg-surface text-ink hover:bg-canvas disabled:text-muted',
+  // For actions that remove something, like Withdraw post. Danger text on white is 6.5:1.
+  danger: 'border border-danger/40 bg-surface text-danger hover:bg-danger-soft disabled:text-muted',
 }
 
 // lg is for the landing page search.

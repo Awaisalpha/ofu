@@ -1,24 +1,23 @@
-import { List, ListFilter, Plus } from 'lucide-react'
+import { CircleCheck, CircleX, Clock, List, ListFilter, Plus } from 'lucide-react'
 import { useSearchParams } from 'react-router'
 import PostRow from '../../components/opportunity/PostRow'
 import Button from '../../components/ui/Button'
 import ButtonLink from '../../components/ui/ButtonLink'
 import EmptyState from '../../components/ui/EmptyState'
-import StatusFilterChips from '../../components/ui/StatusFilterChips'
+import StatusTabs from '../../components/ui/StatusTabs'
 import { useApp } from '../../store/AppContext'
 import { getAlumniPosts } from '../../store/reducer'
-import { useToast } from '../../store/ToastContext'
 
+// Same icons as PostStatusBadge, so a filter and its badge look alike.
 const STATUS_FILTERS = [
-  { value: 'all', label: 'All' },
-  { value: 'pending', label: 'Pending' },
-  { value: 'approved', label: 'Approved' },
-  { value: 'rejected', label: 'Rejected' },
+  { value: 'all', label: 'All', icon: List },
+  { value: 'pending', label: 'Pending', icon: Clock },
+  { value: 'approved', label: 'Approved', icon: CircleCheck },
+  { value: 'rejected', label: 'Rejected', icon: CircleX },
 ]
 
 export default function MyPosts() {
-  const { state, dispatch } = useApp()
-  const { showToast } = useToast()
+  const { state } = useApp()
 
   // The filter lives in the URL, like on My applications, so going back keeps it.
   const [searchParams, setSearchParams] = useSearchParams()
@@ -39,15 +38,6 @@ export default function MyPosts() {
 
   function countApplicants(postId) {
     return state.applications.filter((application) => application.opportunityId === postId).length
-  }
-
-  function withdrawPost(post) {
-    dispatch({ type: 'WITHDRAW_OPPORTUNITY', id: post.id })
-    showToast({
-      message: 'Post withdrawn',
-      actionLabel: 'Undo',
-      onAction: () => dispatch({ type: 'RESTORE_OPPORTUNITY', opportunity: post }),
-    })
   }
 
   const activeFilterLabel = STATUS_FILTERS.find((filter) => filter.value === statusFilter)?.label ?? ''
@@ -73,7 +63,7 @@ export default function MyPosts() {
       ) : (
         <>
           <div className="mt-4">
-            <StatusFilterChips
+            <StatusTabs
               label="Filter by status"
               options={STATUS_FILTERS.map((filter) => ({ ...filter, count: countFor(filter.value) }))}
               selected={statusFilter}
@@ -89,10 +79,10 @@ export default function MyPosts() {
                 </Button>
               </EmptyState>
             ) : (
-              <ul className="space-y-2 sm:space-y-0 sm:divide-y sm:divide-line sm:overflow-hidden sm:rounded-card sm:border sm:border-line sm:bg-surface">
+              <ul className="divide-y divide-line overflow-hidden rounded-card border border-line bg-surface">
                 {visiblePosts.map((post) => (
                   <li key={post.id}>
-                    <PostRow post={post} applicantCount={countApplicants(post.id)} onWithdraw={withdrawPost} />
+                    <PostRow post={post} applicantCount={countApplicants(post.id)} />
                   </li>
                 ))}
               </ul>

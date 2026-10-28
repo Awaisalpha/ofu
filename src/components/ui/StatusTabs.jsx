@@ -1,6 +1,8 @@
-// A row of toggle chips with a count each, e.g. All 4 · Pending 1 · Approved 2.
+// A row of pill toggles with a count each, e.g. All 4 · Pending 1 · Approved 2.
+// Used to filter a list by status or role. They are toggle buttons (aria-pressed),
+// not ARIA tabs, so Tab moves between them like any other button.
 // options is a list of { value, label, count, icon }; icon is an optional lucide icon.
-export default function StatusFilterChips({ label, options, selected, onSelect }) {
+export default function StatusTabs({ label, options, selected, onSelect }) {
   return (
     <div role="group" aria-label={label} className="flex flex-wrap gap-1.5">
       {options.map((option) => {
