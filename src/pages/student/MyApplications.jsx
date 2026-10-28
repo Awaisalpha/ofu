@@ -4,6 +4,7 @@ import ApplicationRow from '../../components/opportunity/ApplicationRow'
 import Button from '../../components/ui/Button'
 import ButtonLink from '../../components/ui/ButtonLink'
 import EmptyState from '../../components/ui/EmptyState'
+import StatusFilterChips from '../../components/ui/StatusFilterChips'
 import { useApp } from '../../store/AppContext'
 import { getStudentApplications } from '../../store/reducer'
 
@@ -53,26 +54,13 @@ export default function MyApplications() {
         </div>
       ) : (
         <>
-          <div role="group" aria-label="Filter by status" className="mt-4 flex flex-wrap gap-1.5">
-            {STATUS_FILTERS.map((status) => {
-              const isActive = status === statusFilter
-              return (
-                <button
-                  key={status}
-                  type="button"
-                  onClick={() => changeFilter(status)}
-                  aria-pressed={isActive}
-                  className={`inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
-                    isActive
-                      ? 'border-accent bg-accent-soft text-accent-strong'
-                      : 'border-line bg-surface text-muted hover:border-line-strong hover:text-ink'
-                  }`}
-                >
-                  {status}
-                  <span className="text-xs tabular-nums">{countFor(status)}</span>
-                </button>
-              )
-            })}
+          <div className="mt-4">
+            <StatusFilterChips
+              label="Filter by status"
+              options={STATUS_FILTERS.map((status) => ({ value: status, label: status, count: countFor(status) }))}
+              selected={statusFilter}
+              onSelect={changeFilter}
+            />
           </div>
 
           <div className="mt-4">

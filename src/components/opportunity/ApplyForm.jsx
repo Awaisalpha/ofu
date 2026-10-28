@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { COVER_NOTE_MAX_LENGTH, COVER_NOTE_MIN_LENGTH, validateCoverNote, validateOptionalUrl } from '../../utils/validation'
 import Button from '../ui/Button'
+import CharacterCount from '../ui/CharacterCount'
 import FieldError from '../ui/FieldError'
 import Input from '../ui/Input'
 import Textarea from '../ui/Textarea'
@@ -13,9 +14,6 @@ export default function ApplyForm({ onSubmit, onCancel }) {
   const [errors, setErrors] = useState({ coverNote: '', portfolioUrl: '' })
   const coverNoteRef = useRef(null)
   const portfolioUrlRef = useRef(null)
-
-  const coverNoteLength = coverNote.trim().length
-  const isOverLimit = coverNoteLength > COVER_NOTE_MAX_LENGTH
 
   function setError(field, message) {
     setErrors((currentErrors) => ({ ...currentErrors, [field]: message }))
@@ -72,15 +70,7 @@ export default function ApplyForm({ onSubmit, onCancel }) {
         />
         <div className="flex items-start justify-between gap-3">
           <FieldError id="cover-note-error">{errors.coverNote}</FieldError>
-          <p
-            id="cover-note-count"
-            className={`mt-1.5 ml-auto shrink-0 text-[13px] leading-5 tabular-nums ${
-              isOverLimit ? 'font-semibold text-danger' : 'text-muted'
-            }`}
-          >
-            {coverNoteLength} / {COVER_NOTE_MAX_LENGTH}
-            <span className="sr-only"> characters</span>
-          </p>
+          <CharacterCount id="cover-note-count" length={coverNote.trim().length} maxLength={COVER_NOTE_MAX_LENGTH} />
         </div>
       </div>
 

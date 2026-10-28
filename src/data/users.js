@@ -4,9 +4,10 @@ export const CURRENT_ALUMNI_ID = 'user-2'
 export const CURRENT_ADMIN_ID = 'user-3'
 
 // All names and emails are fictional.
+// The demo alumnus has an organisation, which pre-fills the Post opportunity form.
 export const users = [
   { id: 'user-1', name: 'Hira Aslam', email: 'hira.aslam@example.com', role: 'student', isActive: true, joinedOffsetDays: -120 },
-  { id: 'user-2', name: 'Bilal Rana', email: 'bilal.rana@example.com', role: 'alumni', isActive: true, joinedOffsetDays: -300 },
+  { id: 'user-2', name: 'Bilal Rana', email: 'bilal.rana@example.com', role: 'alumni', organisation: 'Ravi Byte Labs', isActive: true, joinedOffsetDays: -300 },
   { id: 'user-3', name: 'Sana Iqbal', email: 'sana.iqbal@example.com', role: 'admin', isActive: true, joinedOffsetDays: -400 },
   { id: 'user-4', name: 'Usman Tariq', email: 'usman.tariq@example.com', role: 'student', isActive: true, joinedOffsetDays: -90 },
   { id: 'user-5', name: 'Mahnoor Sheikh', email: 'mahnoor.sheikh@example.com', role: 'student', isActive: true, joinedOffsetDays: -75 },

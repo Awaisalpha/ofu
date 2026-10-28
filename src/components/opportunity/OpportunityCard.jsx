@@ -9,17 +9,19 @@ import SaveButton from './SaveButton'
 // The title link stretches over the whole card (its ::after covers it), so the card is
 // clickable while the save button stays a separate control, not nested inside the link.
 // headingLevel lets a page that already has h2 sections (the landing page) use h3 titles.
-export default function OpportunityCard({ opportunity, headingLevel = 2 }) {
-  const isClosed = getDeadlineStatus(opportunity.deadline) === 'closed'
+// isPreview is for the Post opportunity form: no link, no save button, and the
+// deadline may still be empty.
+export default function OpportunityCard({ opportunity, headingLevel = 2, isPreview = false }) {
+  const isClosed = opportunity.deadline !== '' && getDeadlineStatus(opportunity.deadline) === 'closed'
   const Heading = `h${headingLevel}`
 
   return (
     <article
       className={`relative flex h-full flex-col rounded-card border border-line px-4 pt-3.5 pb-3 ${
-        isClosed ? 'bg-canvas' : 'bg-surface hover:border-line-strong'
-      }`}
+        isClosed ? 'bg-canvas' : 'bg-surface'
+      } ${isPreview ? '' : 'hover:border-line-strong'}`}
     >
-      <div className="flex h-5 items-center gap-2 pr-8">
+      <div className={`flex h-5 items-center gap-2 ${isPreview ? '' : 'pr-8'}`}>
         <Badge>{opportunity.type}</Badge>
         <span className="truncate text-xs font-medium text-muted">{opportunity.organisation}</span>
       </div>
@@ -28,12 +30,16 @@ export default function OpportunityCard({ opportunity, headingLevel = 2 }) {
         title={opportunity.title}
         className={`mt-2 line-clamp-2 h-10 text-[15px] leading-5 font-semibold ${isClosed ? 'text-muted' : ''}`}
       >
-        <Link
-          to={`/student/opportunities/${opportunity.id}`}
-          className="after:absolute after:inset-0 after:rounded-card focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-accent"
-        >
-          {opportunity.title}
-        </Link>
+        {isPreview ? (
+          opportunity.title
+        ) : (
+          <Link
+            to={`/student/opportunities/${opportunity.id}`}
+            className="after:absolute after:inset-0 after:rounded-card focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-accent"
+          >
+            {opportunity.title}
+          </Link>
+        )}
       </Heading>
       <div className="mt-2 space-y-0.5 text-[13px] text-muted">
         <p className="flex h-5 items-center gap-1.5">
@@ -46,13 +52,19 @@ export default function OpportunityCard({ opportunity, headingLevel = 2 }) {
         </p>
       </div>
       <div className="mt-3 border-t border-line pt-2.5">
-        <DeadlineBadge deadline={opportunity.deadline} />
+        {opportunity.deadline ? (
+          <DeadlineBadge deadline={opportunity.deadline} />
+        ) : (
+          <span className="block text-xs leading-5 text-muted">No deadline set</span>
+        )}
       </div>
 
       {/* Sits above the stretched link so it gets its own clicks. */}
-      <div className="absolute top-2 right-2 z-10">
-        <SaveButton opportunity={opportunity} />
-      </div>
+      {!isPreview && (
+        <div className="absolute top-2 right-2 z-10">
+          <SaveButton opportunity={opportunity} />
+        </div>
+      )}
     </article>
   )
 }

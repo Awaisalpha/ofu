@@ -31,7 +31,7 @@ export const navItemsByRole = {
   alumni: [
     { label: 'Post', to: '/alumni/post', icon: PlusCircle },
     { label: 'My posts', to: '/alumni/posts', icon: List },
-    { label: 'Applicants', to: '/alumni/applicants', icon: Inbox },
+    { label: 'Applicants', to: '/alumni/applicants', icon: Inbox, countKey: 'applicants' },
   ],
   admin: [
     { label: 'Overview', to: '/admin/overview', icon: BarChart3 },

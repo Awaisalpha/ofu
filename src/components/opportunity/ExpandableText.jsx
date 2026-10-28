@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 
-// Shows the first 4 lines with a "See more" button, but only when the text is longer than that.
+// Shows the first few lines with a "See more" button, but only when the text is longer than that.
 // The clamp is visual only, so screen readers still read the whole text.
-export default function ExpandableText({ id, text }) {
+// clampClassName must be a full class like 'line-clamp-3' so Tailwind can find it.
+export default function ExpandableText({ id, text, clampClassName = 'line-clamp-4' }) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isOverflowing, setIsOverflowing] = useState(false)
   const textRef = useRef(null)
@@ -24,11 +25,11 @@ export default function ExpandableText({ id, text }) {
 
   return (
     <div>
-      {/* Paragraphs are separate elements, so the 4-line clamp never lands on a blank line. */}
+      {/* Paragraphs are separate elements, so the clamp never lands on a blank line. */}
       <div
         id={id}
         ref={textRef}
-        className={`max-w-[70ch] space-y-2 text-sm leading-6 text-pretty text-ink ${isExpanded ? '' : 'line-clamp-4'}`}
+        className={`max-w-[70ch] space-y-2 text-sm leading-6 text-pretty text-ink ${isExpanded ? '' : clampClassName}`}
       >
         {text.split('\n\n').map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>
