@@ -1,31 +1,54 @@
-import { ChevronRight } from 'lucide-react'
+import { ChevronRight, CircleCheck } from 'lucide-react'
 import { Link } from 'react-router'
 import { formatDate } from '../../utils/dates'
+import { getInitials, getInitialsTint } from '../../utils/initials'
 import ApplicationStatusBadge from './ApplicationStatusBadge'
 
-// A stacked card on phones, one row inside the list's border on larger screens.
-// The whole row opens the opportunity detail page.
+// One row of the bordered list. The title link stretches over the whole row, so the
+// row opens the opportunity detail page. On phones the date and badge sit under the
+// title; from sm they move to the right.
 export default function ApplicationRow({ application, opportunity }) {
   return (
-    <Link
-      to={`/student/opportunities/${opportunity.id}`}
-      className="flex flex-col gap-2 rounded-card border border-line bg-surface px-4 py-3 hover:border-line-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:flex-row sm:items-center sm:gap-4 sm:rounded-none sm:border-0 sm:py-3.5 sm:hover:bg-canvas"
-    >
-      <div className="min-w-0 flex-1">
-        <p className="truncate text-[15px] leading-5 font-semibold" title={opportunity.title}>
-          {opportunity.title}
-        </p>
-        <p className="mt-0.5 truncate text-[13px] text-muted">{opportunity.organisation}</p>
-      </div>
+    <div className="relative flex items-center gap-3 px-4 py-3 hover:bg-canvas motion-safe:transition-colors">
+      {/* Decorative: the organisation name is written next to it. */}
+      <span
+        aria-hidden="true"
+        className={`grid size-10 shrink-0 place-items-center self-start rounded-card text-sm font-semibold sm:self-center ${getInitialsTint(
+          opportunity.organisation,
+        )}`}
+      >
+        {getInitials(opportunity.organisation)}
+      </span>
 
-      <div className="flex items-center justify-between gap-3 sm:contents">
-        <p className="text-[13px] text-muted sm:w-36">Applied {formatDate(application.appliedAt)}</p>
-        <div className="sm:w-28">
-          <ApplicationStatusBadge status={application.status} />
+      <div className="min-w-0 flex-1 sm:flex sm:items-center sm:gap-4">
+        <div className="min-w-0 flex-1">
+          <h2 className="line-clamp-2 text-[15px] leading-5 font-semibold sm:truncate" title={opportunity.title}>
+            {/* The ring is drawn inside the row, because the list clips anything outside it. */}
+            <Link
+              to={`/student/opportunities/${opportunity.id}`}
+              className="after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-accent"
+            >
+              {opportunity.title}
+            </Link>
+          </h2>
+          <p className="mt-0.5 truncate text-[13px] leading-5 text-muted">{opportunity.organisation}</p>
+          {application.status === 'Accepted' && (
+            <p className="mt-0.5 flex items-center gap-1.5 text-[13px] leading-5 text-muted">
+              <CircleCheck size={13} className="shrink-0 text-open" aria-hidden="true" />
+              The poster will contact you by email.
+            </p>
+          )}
+        </div>
+
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 sm:mt-0 sm:shrink-0 sm:flex-nowrap">
+          <p className="text-[13px] text-muted sm:w-36">Applied {formatDate(application.appliedAt)}</p>
+          <div className="sm:w-24">
+            <ApplicationStatusBadge status={application.status} />
+          </div>
         </div>
       </div>
 
-      <ChevronRight size={16} className="hidden shrink-0 text-muted sm:block" aria-hidden="true" />
-    </Link>
+      <ChevronRight size={16} className="shrink-0 text-muted" aria-hidden="true" />
+    </div>
   )
 }

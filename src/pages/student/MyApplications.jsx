@@ -1,4 +1,4 @@
-import { FileText, ListFilter } from 'lucide-react'
+import { CircleCheck, CircleX, FileText, List, ListFilter, Send } from 'lucide-react'
 import { useSearchParams } from 'react-router'
 import ApplicationRow from '../../components/opportunity/ApplicationRow'
 import Button from '../../components/ui/Button'
@@ -8,7 +8,13 @@ import StatusFilterChips from '../../components/ui/StatusFilterChips'
 import { useApp } from '../../store/AppContext'
 import { getStudentApplications } from '../../store/reducer'
 
-const STATUS_FILTERS = ['All', 'Submitted', 'Accepted', 'Rejected']
+// Same icons as ApplicationStatusBadge, so a filter and its badge look alike.
+const STATUS_FILTERS = [
+  { status: 'All', icon: List },
+  { status: 'Submitted', icon: Send },
+  { status: 'Accepted', icon: CircleCheck },
+  { status: 'Rejected', icon: CircleX },
+]
 
 export default function MyApplications() {
   const { state } = useApp()
@@ -57,7 +63,12 @@ export default function MyApplications() {
           <div className="mt-4">
             <StatusFilterChips
               label="Filter by status"
-              options={STATUS_FILTERS.map((status) => ({ value: status, label: status, count: countFor(status) }))}
+              options={STATUS_FILTERS.map(({ status, icon }) => ({
+                value: status,
+                label: status,
+                count: countFor(status),
+                icon,
+              }))}
               selected={statusFilter}
               onSelect={changeFilter}
             />
@@ -71,7 +82,7 @@ export default function MyApplications() {
                 </Button>
               </EmptyState>
             ) : (
-              <ul className="space-y-2 sm:space-y-0 sm:divide-y sm:divide-line sm:overflow-hidden sm:rounded-card sm:border sm:border-line sm:bg-surface">
+              <ul className="divide-y divide-line overflow-hidden rounded-card border border-line bg-surface">
                 {visibleApplications.map(({ application, opportunity }) => (
                   <li key={application.id}>
                     <ApplicationRow application={application} opportunity={opportunity} />

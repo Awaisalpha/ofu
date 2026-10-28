@@ -1,10 +1,11 @@
 // A row of toggle chips with a count each, e.g. All 4 · Pending 1 · Approved 2.
-// options is a list of { value, label, count }.
+// options is a list of { value, label, count, icon }; icon is an optional lucide icon.
 export default function StatusFilterChips({ label, options, selected, onSelect }) {
   return (
     <div role="group" aria-label={label} className="flex flex-wrap gap-1.5">
       {options.map((option) => {
         const isActive = option.value === selected
+        const Icon = option.icon
         return (
           <button
             key={option.value}
@@ -17,6 +18,7 @@ export default function StatusFilterChips({ label, options, selected, onSelect }
                 : 'border-line bg-surface text-muted hover:border-line-strong hover:text-ink'
             }`}
           >
+            {Icon && <Icon size={14} aria-hidden="true" />}
             {option.label}
             <span className="text-xs tabular-nums">{option.count}</span>
           </button>
