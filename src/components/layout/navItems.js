@@ -35,7 +35,7 @@ export const navItemsByRole = {
   ],
   admin: [
     { label: 'Overview', to: '/admin/overview', icon: BarChart3 },
-    { label: 'Pending', to: '/admin/pending', icon: ClipboardCheck },
+    { label: 'Pending', to: '/admin/pending', icon: ClipboardCheck, countKey: 'pending' },
     { label: 'Users', to: '/admin/users', icon: Users },
   ],
 }

@@ -17,6 +17,18 @@ export function getAlumniApplications(state) {
   return state.applications.filter((application) => postIds.includes(application.opportunityId))
 }
 
+export function getUserName(state, userId) {
+  return state.users.find((user) => user.id === userId)?.name ?? 'Unknown user'
+}
+
+// The admin review queue, oldest first. The sort is stable, so posts from the
+// same day stay in the order they were added.
+export function getPendingPosts(state) {
+  return state.opportunities
+    .filter((opportunity) => opportunity.status === 'pending')
+    .sort((a, b) => a.postedAt.localeCompare(b.postedAt))
+}
+
 // Builds fresh demo data, turning the day offsets in the seed files into real dates.
 export function createInitialState() {
   return {
@@ -88,6 +100,24 @@ export function reducer(state, action) {
     // Undo for a withdraw: puts the same post back.
     case 'RESTORE_OPPORTUNITY':
       return { ...state, opportunities: [...state.opportunities, action.opportunity] }
+
+    // Approve, Reject, and their Undo (back to pending with no reason).
+    case 'SET_OPPORTUNITY_STATUS':
+      return {
+        ...state,
+        opportunities: state.opportunities.map((opportunity) =>
+          opportunity.id === action.id
+            ? { ...opportunity, status: action.status, rejectReason: action.rejectReason ?? '' }
+            : opportunity,
+        ),
+      }
+
+    // Activate, Deactivate, and their Undo.
+    case 'SET_USER_ACTIVE':
+      return {
+        ...state,
+        users: state.users.map((user) => (user.id === action.id ? { ...user, isActive: action.isActive } : user)),
+      }
 
     default:
       return state

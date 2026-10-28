@@ -49,3 +49,15 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
 export function formatDate(dateString) {
   return dateFormatter.format(parseDate(dateString))
 }
+
+// "Wednesday, 28 October 2026", for page headers.
+const longDateFormatter = new Intl.DateTimeFormat('en-GB', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+})
+
+export function formatLongDate(date) {
+  return longDateFormatter.format(date)
+}

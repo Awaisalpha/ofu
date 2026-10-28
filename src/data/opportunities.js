@@ -160,9 +160,10 @@ export const opportunities = [
     id: 'opp-11',
     title: 'Mobile App Development Intern',
     type: 'Internship',
-    organisation: 'Ravi Byte Labs',
+    organisation: 'Tezgam Deliveries',
     location: 'Remote',
-    description: 'Help build a React Native app for a delivery startup. Basic JavaScript knowledge required.',
+    // Under 80 characters on purpose, so the admin review shows a warning check.
+    description: 'Help build a React Native app for our delivery riders.',
     stipend: 'PKR 30,000 / month',
     status: 'pending',
     rejectReason: '',

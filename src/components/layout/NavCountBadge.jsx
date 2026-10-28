@@ -1,10 +1,12 @@
-import { getAlumniApplications, getStudentApplications } from '../../store/reducer'
+import { getAlumniApplications, getPendingPosts, getStudentApplications } from '../../store/reducer'
 import { useApp } from '../../store/AppContext'
 
-// The alumnus sees how many applicants still need a decision.
+// The alumnus sees how many applicants still need a decision,
+// the admin how many posts are waiting for review.
 function getCount(state, countKey) {
   if (countKey === 'saved') return state.savedOpportunityIds.length
   if (countKey === 'applications') return getStudentApplications(state).length
+  if (countKey === 'pending') return getPendingPosts(state).length
   return getAlumniApplications(state).filter((application) => application.status === 'Submitted').length
 }
 

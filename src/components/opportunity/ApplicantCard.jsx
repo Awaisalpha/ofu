@@ -1,19 +1,10 @@
 import { ExternalLink } from 'lucide-react'
 import { useRef } from 'react'
 import { formatDate } from '../../utils/dates'
+import Avatar from '../ui/Avatar'
 import Button from '../ui/Button'
 import ApplicationStatusBadge from './ApplicationStatusBadge'
 import ExpandableText from './ExpandableText'
-
-// "Usman Tariq" → "UT"
-function getInitials(name) {
-  return name
-    .split(' ')
-    .map((part) => part[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase()
-}
 
 export default function ApplicantCard({ application, student, opportunity, onDecide }) {
   const cardRef = useRef(null)
@@ -33,12 +24,7 @@ export default function ApplicantCard({ application, student, opportunity, onDec
       className="rounded-card border border-line bg-surface p-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:p-5"
     >
       <div className="flex items-start gap-3">
-        <span
-          aria-hidden="true"
-          className="grid size-10 shrink-0 place-items-center rounded-full bg-accent-soft text-sm font-semibold text-accent-strong"
-        >
-          {getInitials(student.name)}
-        </span>
+        <Avatar name={student.name} />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
             <h2 id={`applicant-${application.id}`} className="text-[15px] leading-5 font-semibold">
