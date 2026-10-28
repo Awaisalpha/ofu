@@ -32,9 +32,20 @@
   --color-danger: #b42318;
   --color-danger-soft: #fdecea;
 
+  /* Organisation initials only. No red, green or amber, so they never read as a status. */
+  --color-tint-sky: #075985;
+  --color-tint-sky-soft: #e0f2fe;
+  --color-tint-violet: #5b21b6;
+  --color-tint-violet-soft: #ede9fe;
+  --color-tint-fuchsia: #86198f;
+  --color-tint-fuchsia-soft: #fae8ff;
+  --color-tint-sand: #57483a;
+  --color-tint-sand-soft: #f1ede4;
+
   --radius-card: 0.375rem;
 
   --shadow-float: 0 1px 2px rgb(15 23 42 / 0.06), 0 8px 24px rgb(15 23 42 / 0.1);
+  --shadow-card-hover: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 12px rgb(15 23 42 / 0.06);
 
   /* Extra legibility for white text on the Browse hero photo. */
   --text-shadow-hero: 0 1px 2px rgb(15 23 42 / 0.6), 0 0 16px rgb(15 23 42 / 0.45);

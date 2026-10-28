@@ -1,12 +1,4 @@
-// "Usman Tariq" → "UT"
-function getInitials(name) {
-  return name
-    .split(' ')
-    .map((part) => part[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase()
-}
+import { getInitials } from '../../utils/initials'
 
 // Initials in a circle. Decorative, because the name is always written next to it.
 // className sets the size and text size, e.g. 'size-10 text-sm'.

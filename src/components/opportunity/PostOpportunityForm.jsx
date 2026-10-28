@@ -110,6 +110,7 @@ export default function PostOpportunityForm({ defaultOrganisation, onSubmit }) {
     location: currentValues.location.trim() || 'Location',
     stipend: currentValues.stipend.trim(),
     deadline: currentValues.deadline,
+    postedAt: dateFromToday(0),
   }
 
   return (

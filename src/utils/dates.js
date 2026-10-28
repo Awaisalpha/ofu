@@ -40,6 +40,13 @@ export function describeDaysLeft(deadline) {
   return `${days} days left`
 }
 
+const relativeTimeFormatter = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
+
+// "today", "yesterday", "6 days ago"
+export function describePostedAgo(postedAt) {
+  return relativeTimeFormatter.format(daysLeft(postedAt), 'day')
+}
+
 const dateFormatter = new Intl.DateTimeFormat('en-GB', {
   day: 'numeric',
   month: 'short',
