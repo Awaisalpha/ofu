@@ -4,7 +4,7 @@ import LahoreClock from './LahoreClock'
 
 const sectionLinks = [
   { label: 'How it works', href: '#how-it-works' },
-  { label: 'Closing soon', href: '#closing-soon' },
+  { label: 'Why OFU', href: '#why-ofu' },
   { label: 'FAQ', href: '#faq' },
 ]
 
