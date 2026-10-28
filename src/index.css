@@ -21,6 +21,8 @@
   --color-accent-hover: #1a3793;
   --color-accent-strong: #1e3a8a;
   --color-accent-soft: #e8eefb;
+  /* White text and icons on a strong metric colour. */
+  --color-on-accent: #ffffff;
 
   --color-open: #14633a;
   --color-open-soft: #e7f6ee;
@@ -41,6 +43,21 @@
   --color-tint-fuchsia-soft: #fae8ff;
   --color-tint-sand: #57483a;
   --color-tint-sand-soft: #f1ede4;
+
+  /* One identity colour per Overview metric, never a status. strong carries white icons and reads
+     on white and on soft (6.3:1 or more); soft is the card, line is its border. */
+  --color-metric-users-strong: #5b21b6;
+  --color-metric-users-soft: #ede9fe;
+  --color-metric-users-line: #ddd6fe;
+  --color-metric-live-strong: #115e59;
+  --color-metric-live-soft: #ccfbf1;
+  --color-metric-live-line: #99f6e4;
+  --color-metric-pending-strong: #92400e;
+  --color-metric-pending-soft: #fef3c7;
+  --color-metric-pending-line: #fde68a;
+  --color-metric-applications-strong: var(--color-accent-strong);
+  --color-metric-applications-soft: var(--color-accent-soft);
+  --color-metric-applications-line: #bfdbfe;
 
   --radius-card: 0.375rem;
 

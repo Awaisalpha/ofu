@@ -33,7 +33,7 @@ export const opportunities = [
     rejectReason: '',
     postedBy: 'user-10',
     deadlineOffsetDays: 2,
-    postedOffsetDays: -14,
+    postedOffsetDays: -13,
   },
   {
     id: 'opp-3',
@@ -63,7 +63,7 @@ export const opportunities = [
     rejectReason: '',
     postedBy: 'user-10',
     deadlineOffsetDays: -4,
-    postedOffsetDays: -30,
+    postedOffsetDays: -27,
   },
   {
     id: 'opp-5',
@@ -169,7 +169,7 @@ export const opportunities = [
     rejectReason: '',
     postedBy: 'user-10',
     deadlineOffsetDays: 14,
-    postedOffsetDays: 0,
+    postedOffsetDays: -3,
   },
 
   // Scholarships
@@ -186,7 +186,7 @@ export const opportunities = [
     rejectReason: '',
     postedBy: 'user-11',
     deadlineOffsetDays: 3,
-    postedOffsetDays: -20,
+    postedOffsetDays: -18,
   },
   {
     id: 'opp-13',
@@ -215,7 +215,7 @@ export const opportunities = [
     rejectReason: '',
     postedBy: 'user-11',
     deadlineOffsetDays: 40,
-    postedOffsetDays: -12,
+    postedOffsetDays: -11,
   },
   {
     id: 'opp-15',
@@ -229,7 +229,7 @@ export const opportunities = [
     rejectReason: '',
     postedBy: 'user-10',
     deadlineOffsetDays: -6,
-    postedOffsetDays: -40,
+    postedOffsetDays: -29,
   },
   {
     id: 'opp-16',
@@ -243,7 +243,7 @@ export const opportunities = [
     rejectReason: '',
     postedBy: 'user-11',
     deadlineOffsetDays: 22,
-    postedOffsetDays: -1,
+    postedOffsetDays: -6,
   },
 
   // Freelance
@@ -259,7 +259,7 @@ export const opportunities = [
     rejectReason: '',
     postedBy: 'user-10',
     deadlineOffsetDays: 6,
-    postedOffsetDays: -3,
+    postedOffsetDays: -9,
   },
   {
     id: 'opp-18',
@@ -288,7 +288,7 @@ export const opportunities = [
     rejectReason: '',
     postedBy: 'user-11',
     deadlineOffsetDays: 2,
-    postedOffsetDays: -9,
+    postedOffsetDays: -16,
   },
   {
     id: 'opp-20',
@@ -302,7 +302,7 @@ export const opportunities = [
     rejectReason: 'The description is too short. Please add deliverables, timeline and how to apply.',
     postedBy: 'user-2',
     deadlineOffsetDays: 8,
-    postedOffsetDays: -5,
+    postedOffsetDays: -12,
   },
 
   // Events
@@ -319,7 +319,7 @@ export const opportunities = [
     rejectReason: '',
     postedBy: 'user-3',
     deadlineOffsetDays: 5,
-    postedOffsetDays: -15,
+    postedOffsetDays: -22,
   },
   {
     id: 'opp-22',
@@ -334,7 +334,7 @@ export const opportunities = [
     rejectReason: '',
     postedBy: 'user-11',
     deadlineOffsetDays: 11,
-    postedOffsetDays: -6,
+    postedOffsetDays: -14,
   },
   {
     id: 'opp-23',
@@ -348,7 +348,7 @@ export const opportunities = [
     rejectReason: '',
     postedBy: 'user-3',
     deadlineOffsetDays: -1,
-    postedOffsetDays: -12,
+    postedOffsetDays: -20,
   },
   {
     id: 'opp-24',
@@ -362,7 +362,7 @@ export const opportunities = [
     rejectReason: '',
     postedBy: 'user-10',
     deadlineOffsetDays: 17,
-    postedOffsetDays: -2,
+    postedOffsetDays: -1,
   },
 ]
 

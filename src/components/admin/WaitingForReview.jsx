@@ -1,16 +1,24 @@
 import { CircleCheck } from 'lucide-react'
-import { formatDate } from '../../utils/dates'
+import { typeStyles } from '../opportunity/typeStyles'
 import ArrowLink from '../ui/ArrowLink'
+import TintedSquare from '../ui/TintedSquare'
+import WaitingChip from './WaitingChip'
 
-// The oldest few pending posts, with a shortcut to the full queue.
-// posts is a list of { post, posterName }.
+// The oldest pending posts with their type, poster and how long they have waited.
+// posts is a list of { post, posterName }, oldest first.
 export default function WaitingForReview({ posts }) {
   return (
-    <section aria-labelledby="waiting-title" className="rounded-card border border-line bg-surface p-4 sm:p-5">
+    <section
+      aria-labelledby="waiting-title"
+      className="min-w-0 rounded-card border border-line bg-surface p-4 sm:p-5"
+    >
       <div className="flex items-center justify-between gap-3">
-        <h2 id="waiting-title" className="text-base leading-snug font-semibold">
-          Waiting for review
-        </h2>
+        <div>
+          <h2 id="waiting-title" className="text-base leading-snug font-semibold">
+            Waiting for review
+          </h2>
+          <p className="mt-0.5 text-[13px] text-muted">Oldest first</p>
+        </div>
         {posts.length > 0 && <ArrowLink to="/admin/pending">Review</ArrowLink>}
       </div>
 
@@ -20,15 +28,26 @@ export default function WaitingForReview({ posts }) {
           All caught up. Nothing is waiting for review.
         </p>
       ) : (
-        <ul className="mt-2 divide-y divide-line">
-          {posts.map(({ post, posterName }) => (
-            <li key={post.id} className="py-3">
-              <p className="text-sm leading-5 font-medium text-pretty">{post.title}</p>
-              <p className="mt-0.5 text-[13px] text-muted">
-                By {posterName} · Posted {formatDate(post.postedAt)}
-              </p>
-            </li>
-          ))}
+        <ul className="mt-3 divide-y divide-line">
+          {posts.map(({ post, posterName }) => {
+            const { icon: TypeIcon, tintClassName } = typeStyles[post.type]
+            return (
+              <li key={post.id} className="flex gap-3 py-3">
+                <TintedSquare tintClassName={tintClassName}>
+                  <TypeIcon size={18} />
+                </TintedSquare>
+                <div className="min-w-0">
+                  <p className="text-sm leading-5 font-medium text-pretty break-words">{post.title}</p>
+                  <p className="mt-0.5 text-[13px] text-muted">
+                    {post.type} · By {posterName}
+                  </p>
+                  <div className="mt-1.5">
+                    <WaitingChip postedAt={post.postedAt} />
+                  </div>
+                </div>
+              </li>
+            )
+          })}
         </ul>
       )}
     </section>

@@ -1,47 +1,80 @@
-import StatCard from '../../components/admin/StatCard'
-import TypeBarChart from '../../components/admin/TypeBarChart'
+import { useState } from 'react'
+import MetricTabs from '../../components/admin/MetricTabs'
+import RangeSelect from '../../components/admin/RangeSelect'
 import WaitingForReview from '../../components/admin/WaitingForReview'
+import AreaTrendChart from '../../components/charts/AreaTrendChart'
+import { metricChartColors } from '../../components/charts/chartColors'
+import TypeDonut from '../../components/charts/TypeDonut'
 import { useApp } from '../../store/AppContext'
-import { getPendingPosts, getUserName } from '../../store/reducer'
 import { formatLongDate } from '../../utils/dates'
-import { isLiveOpportunity } from '../../utils/filters'
+import { countByType, describeTypeCounts, getOldestPending, getOverviewMetrics } from '../../utils/stats'
 
+const PANEL_ID = 'metric-panel'
+
+// The stat cards are tabs, and one large chart shows the chosen metric per day.
 export default function Overview() {
   const { state } = useApp()
+  const [selectedId, setSelectedId] = useState('applications')
+  const [days, setDays] = useState(30)
 
-  const activeUserCount = state.users.filter((user) => user.isActive).length
-  const approvedOpportunities = state.opportunities.filter((opportunity) => opportunity.status === 'approved')
-  const liveCount = approvedOpportunities.filter(isLiveOpportunity).length
-  const pendingPosts = getPendingPosts(state)
-
-  const oldestPending = pendingPosts.slice(0, 3).map((post) => ({
-    post,
-    posterName: getUserName(state, post.postedBy),
-  }))
+  const metrics = getOverviewMetrics(state, days)
+  const selected = metrics.find((metric) => metric.id === selectedId)
+  const approved = state.opportunities.filter((opportunity) => opportunity.status === 'approved')
+  const typeCounts = countByType(approved)
 
   return (
     <section>
       <h1 className="text-2xl leading-tight font-semibold tracking-tight">Overview</h1>
       <p className="mt-1 text-sm text-muted">{formatLongDate(new Date())}</p>
 
-      <ul className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <li>
-          <StatCard label="Users" value={state.users.length} hint={`${activeUserCount} active`} />
-        </li>
-        <li>
-          <StatCard label="Live opportunities" value={liveCount} hint="Approved and open" />
-        </li>
-        <li>
-          <StatCard label="Pending review" value={pendingPosts.length} hint="Open the queue" to="/admin/pending" />
-        </li>
-        <li>
-          <StatCard label="Applications" value={state.applications.length} hint="From all students" />
-        </li>
-      </ul>
+      <div className="mt-5">
+        <MetricTabs metrics={metrics} selectedId={selectedId} onSelect={setSelectedId} panelId={PANEL_ID} />
+      </div>
+
+      <div
+        role="tabpanel"
+        id={PANEL_ID}
+        aria-labelledby={`metric-tab-${selected.id}`}
+        className="mt-4 min-w-0 rounded-card border border-line bg-surface p-4 sm:p-5"
+      >
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h2 className="text-base leading-snug font-semibold">{selected.seriesName}</h2>
+            <p className="mt-0.5 text-[13px] text-muted">
+              {selected.isRunningTotal ? 'Running total' : 'Per day'}, last {days} days
+            </p>
+          </div>
+          <RangeSelect id="trend-range" value={days} onChange={setDays} />
+        </div>
+        <div className="mt-4">
+          <AreaTrendChart
+            data={selected.series}
+            name={selected.seriesName}
+            summary={selected.summary}
+            title={`${selected.seriesName}, last ${days} days`}
+            color={metricChartColors[selected.id]}
+          />
+        </div>
+      </div>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
-        <TypeBarChart opportunities={approvedOpportunities} />
-        <WaitingForReview posts={oldestPending} />
+        <section
+          aria-labelledby="type-donut-title"
+          className="min-w-0 rounded-card border border-line bg-surface p-4 sm:p-5"
+        >
+          <h2 id="type-donut-title" className="text-base leading-snug font-semibold">
+            Opportunities by type
+          </h2>
+          <p className="mt-0.5 text-[13px] text-muted">Approved posts, open and closed</p>
+          <div className="mt-4">
+            <TypeDonut
+              data={typeCounts}
+              summary={`Approved opportunities by type: ${describeTypeCounts(typeCounts)}.`}
+              title="Approved opportunities by type"
+            />
+          </div>
+        </section>
+        <WaitingForReview posts={getOldestPending(state, 3)} />
       </div>
     </section>
   )

@@ -1,5 +1,5 @@
 // Bump the version when the seed data changes, so returning visitors get the new data.
-const STORAGE_KEY = 'ofu-demo-state-v4'
+const STORAGE_KEY = 'ofu-demo-state-v5'
 
 // Returns the saved state, or null if nothing is saved or it can't be read.
 export function loadState() {

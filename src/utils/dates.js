@@ -57,6 +57,13 @@ export function formatDate(dateString) {
   return dateFormatter.format(parseDate(dateString))
 }
 
+const shortDateFormatter = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short' })
+
+// "28 Oct", for chart axes.
+export function formatShortDate(dateString) {
+  return shortDateFormatter.format(parseDate(dateString))
+}
+
 // "Wednesday, 28 October 2026", for page headers.
 const longDateFormatter = new Intl.DateTimeFormat('en-GB', {
   weekday: 'long',
