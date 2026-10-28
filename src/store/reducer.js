@@ -41,9 +41,10 @@ export function createInitialState() {
       ...user,
       joinedAt: dateFromToday(joinedOffsetDays),
     })),
-    applications: applications.map(({ appliedOffsetDays, ...application }) => ({
+    applications: applications.map(({ appliedOffsetDays, decidedOffsetDays, ...application }) => ({
       ...application,
       appliedAt: dateFromToday(appliedOffsetDays),
+      decidedAt: decidedOffsetDays === undefined ? '' : dateFromToday(decidedOffsetDays),
     })),
     savedOpportunityIds: [...savedOpportunityIds],
   }
@@ -78,12 +79,18 @@ export function reducer(state, action) {
       return { ...state, applications: [...state.applications, newApplication] }
     }
 
-    // Accept, Reject, and their Undo (back to Submitted).
+    // Accept, Reject, and their Undo (back to Submitted, which clears the decision date).
     case 'SET_APPLICATION_STATUS':
       return {
         ...state,
         applications: state.applications.map((application) =>
-          application.id === action.id ? { ...application, status: action.status } : application,
+          application.id === action.id
+            ? {
+                ...application,
+                status: action.status,
+                decidedAt: action.status === 'Submitted' ? '' : dateFromToday(0),
+              }
+            : application,
         ),
       }
 

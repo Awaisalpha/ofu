@@ -1,9 +1,8 @@
-import { Inbox } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router'
-import ApplicantCard from '../../components/opportunity/ApplicantCard'
-import Button from '../../components/ui/Button'
-import ButtonLink from '../../components/ui/ButtonLink'
-import EmptyState from '../../components/ui/EmptyState'
+import ApplicantPostGroup from '../../components/opportunity/ApplicantPostGroup'
+import ApplicantsEmptyState from '../../components/opportunity/ApplicantsEmptyState'
+import ApplicantsToolbar from '../../components/opportunity/ApplicantsToolbar'
 import { useApp } from '../../store/AppContext'
 import { getAlumniApplications, getAlumniPosts } from '../../store/reducer'
 import { useToast } from '../../store/ToastContext'
@@ -20,14 +19,16 @@ export default function Applicants() {
   // An id that isn't one of this alumnus's posts falls back to All posts.
   const postFilter = alumniPosts.some((post) => post.id === requestedPost) ? requestedPost : 'all'
 
-  function changeFilter(postId) {
+  function changePostFilter(postId) {
     setSearchParams(postId === 'all' ? {} : { post: postId }, { replace: true })
   }
 
   // Approved posts, plus the linked post if it isn't approved, so the menu always shows the current choice.
   const filterPosts = alumniPosts.filter((post) => post.status === 'approved' || post.id === postFilter)
 
-  // Newest first. Not grouped by status, so a card stays in place after Accept or Reject.
+  const [statusFilter, setStatusFilter] = useState('Submitted')
+
+  // Applicants for the chosen post, newest first.
   const applicants = getAlumniApplications(state)
     .filter((application) => postFilter === 'all' || application.opportunityId === postFilter)
     .map((application) => ({
@@ -35,70 +36,119 @@ export default function Applicants() {
       student: state.users.find((user) => user.id === application.studentId),
       opportunity: state.opportunities.find((opportunity) => opportunity.id === application.opportunityId),
     }))
-    .filter(({ student }) => student)
+    .filter(({ student, opportunity }) => student && opportunity)
     .sort((a, b) => b.application.appliedAt.localeCompare(a.application.appliedAt))
 
-  function decide(application, student, status) {
+  function countFor(status) {
+    if (status === 'All') return applicants.length
+    return applicants.filter(({ application }) => application.status === status).length
+  }
+
+  const visibleApplicants =
+    statusFilter === 'All' ? applicants : applicants.filter(({ application }) => application.status === statusFilter)
+
+  // One group per post, latest deadline first. Posts with nobody under the current tab are left out.
+  const groups = alumniPosts
+    .map((post) => {
+      const postApplicants = applicants.filter(({ application }) => application.opportunityId === post.id)
+      return {
+        post,
+        entries: visibleApplicants.filter(({ application }) => application.opportunityId === post.id),
+        totalCount: postApplicants.length,
+        toReviewCount: postApplicants.filter(({ application }) => application.status === 'Submitted').length,
+      }
+    })
+    .filter((group) => group.entries.length > 0)
+    .sort((a, b) => b.post.deadline.localeCompare(a.post.deadline))
+
+  // A decision moves the row out of every tab except All, so focus goes to the next row
+  // (or the list) instead of being lost with the removed buttons.
+  const [focusRequest, setFocusRequest] = useState(null)
+  const groupsRef = useRef(null)
+
+  useEffect(() => {
+    if (!focusRequest) return
+    const row = focusRequest.id && document.getElementById(`applicant-row-${focusRequest.id}`)
+    ;(row || groupsRef.current)?.focus()
+  }, [focusRequest])
+
+  function moveFocusAfter(application) {
+    if (statusFilter === 'All') {
+      setFocusRequest({ id: application.id })
+      return
+    }
+    const orderedEntries = groups.flatMap((group) => group.entries)
+    const index = orderedEntries.findIndex((entry) => entry.application === application)
+    const neighbour = orderedEntries[index + 1] ?? orderedEntries[index - 1]
+    setFocusRequest({ id: neighbour?.application.id ?? null })
+  }
+
+  function setStatus(application, status) {
     dispatch({ type: 'SET_APPLICATION_STATUS', id: application.id, status })
+  }
+
+  function decide(application, student, status) {
+    setStatus(application, status)
     showToast({
       message: `${status} ${student.name}`,
       actionLabel: 'Undo',
-      onAction: () => dispatch({ type: 'SET_APPLICATION_STATUS', id: application.id, status: 'Submitted' }),
+      onAction: () => setStatus(application, 'Submitted'),
     })
+    moveFocusAfter(application)
+  }
+
+  // The Undo button on a decided row; the toast's Undo puts the decision back.
+  function undoDecision(application, student) {
+    const previousStatus = application.status
+    setStatus(application, 'Submitted')
+    showToast({
+      message: `Moved ${student.name} back to To review`,
+      actionLabel: 'Undo',
+      onAction: () => setStatus(application, previousStatus),
+    })
+    moveFocusAfter(application)
   }
 
   return (
     <section>
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="text-2xl leading-tight font-semibold tracking-tight">
-          Applicants <span className="font-normal text-muted tabular-nums">({applicants.length})</span>
-        </h1>
-        <div className="flex w-full items-center gap-2 sm:w-auto">
-          <label htmlFor="post-filter" className="text-sm whitespace-nowrap text-muted">
-            Filter by post
-          </label>
-          <select
-            id="post-filter"
-            value={postFilter}
-            onChange={(event) => changeFilter(event.target.value)}
-            className="h-9 min-w-0 flex-1 rounded-card border border-line-strong bg-surface px-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:max-w-72 sm:text-sm"
-          >
-            <option value="all">All posts</option>
-            {filterPosts.map((post) => (
-              <option key={post.id} value={post.id}>
-                {post.title}
-              </option>
-            ))}
-          </select>
-        </div>
+      <h1 className="text-2xl leading-tight font-semibold tracking-tight">
+        Applicants <span className="font-normal text-muted tabular-nums">({applicants.length})</span>
+      </h1>
+
+      <div className="mt-4">
+        <ApplicantsToolbar
+          statusFilter={statusFilter}
+          onStatusChange={setStatusFilter}
+          countFor={countFor}
+          postFilter={postFilter}
+          posts={filterPosts}
+          onPostChange={changePostFilter}
+        />
       </div>
 
       <div className="mt-5">
-        {applicants.length === 0 ? (
-          postFilter === 'all' ? (
-            <EmptyState icon={Inbox} message="No applicants yet. They appear here once your approved posts get applications.">
-              <ButtonLink to="/alumni/posts">See my posts</ButtonLink>
-            </EmptyState>
-          ) : (
-            <EmptyState icon={Inbox} message="No applicants for this post yet">
-              <Button variant="secondary" onClick={() => changeFilter('all')}>
-                Show all posts
-              </Button>
-            </EmptyState>
-          )
+        {groups.length === 0 ? (
+          <ApplicantsEmptyState
+            hasApplicants={applicants.length > 0}
+            postFilter={postFilter}
+            statusFilter={statusFilter}
+            onShowAllPosts={() => changePostFilter('all')}
+            onShowAllStatuses={() => setStatusFilter('All')}
+          />
         ) : (
-          <ul className="grid gap-3 xl:grid-cols-2">
-            {applicants.map(({ application, student, opportunity }) => (
-              <li key={application.id}>
-                <ApplicantCard
-                  application={application}
-                  student={student}
-                  opportunity={opportunity}
-                  onDecide={decide}
-                />
-              </li>
+          <div ref={groupsRef} tabIndex={-1} className="space-y-10 focus-visible:outline-none">
+            {groups.map((group) => (
+              <ApplicantPostGroup
+                key={group.post.id}
+                post={group.post}
+                entries={group.entries}
+                totalCount={group.totalCount}
+                toReviewCount={group.toReviewCount}
+                onDecide={decide}
+                onUndo={undoDecision}
+              />
             ))}
-          </ul>
+          </div>
         )}
       </div>
     </section>

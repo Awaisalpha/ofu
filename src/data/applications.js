@@ -19,6 +19,7 @@ export const applications = [
     portfolioUrl: '',
     status: 'Accepted',
     appliedOffsetDays: -6,
+    decidedOffsetDays: -5,
   },
   {
     id: 'app-3',
@@ -28,6 +29,7 @@ export const applications = [
     portfolioUrl: '',
     status: 'Rejected',
     appliedOffsetDays: -20,
+    decidedOffsetDays: -19,
   },
 
   // Other students applying to the demo alumnus's posts (opp-1 and opp-6)
@@ -60,6 +62,7 @@ export const applications = [
     portfolioUrl: '',
     status: 'Accepted',
     appliedOffsetDays: -4,
+    decidedOffsetDays: -3,
   },
   {
     id: 'app-7',
@@ -80,6 +83,7 @@ export const applications = [
     portfolioUrl: '',
     status: 'Accepted',
     appliedOffsetDays: -5,
+    decidedOffsetDays: -4,
   },
   {
     id: 'app-9',
@@ -89,6 +93,7 @@ export const applications = [
     portfolioUrl: '',
     status: 'Rejected',
     appliedOffsetDays: -4,
+    decidedOffsetDays: -3,
   },
   {
     id: 'app-10',
@@ -99,6 +104,7 @@ export const applications = [
     portfolioUrl: 'https://ayesha-nadeem.example.com',
     status: 'Accepted',
     appliedOffsetDays: -3,
+    decidedOffsetDays: -2,
   },
   {
     id: 'app-11',
@@ -108,5 +114,6 @@ export const applications = [
     portfolioUrl: '',
     status: 'Rejected',
     appliedOffsetDays: -2,
+    decidedOffsetDays: -1,
   },
 ]
