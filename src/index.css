@@ -4,6 +4,8 @@
    and never raw hex values. Text pairs are checked for WCAG AA contrast. */
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* Only for the small "Simple steps" label on the landing page. */
+  --font-hand: "Caveat", cursive;
 
   --color-canvas: #f6f7f9;
   --color-surface: #ffffff;
@@ -34,6 +36,15 @@
 
   /* Extra legibility for white text on the Browse hero photo. */
   --text-shadow-hero: 0 1px 2px rgb(15 23 42 / 0.6), 0 0 16px rgb(15 23 42 / 0.45);
+
+  /* Use with motion-safe: so it's skipped for people who ask for less motion. */
+  --animate-fade-in: fade-in 200ms ease-out;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
 }
 
 body {
