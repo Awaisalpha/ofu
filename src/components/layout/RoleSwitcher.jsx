@@ -5,7 +5,8 @@ import { roleHomePaths, roleLabels } from './navItems'
 
 const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent'
 
-// "View as" segmented control plus the Reset demo data button.
+// "View as" segmented control on a near-black track, plus the Reset demo data button.
+// The before: layers grow the click areas to 40px without changing the look.
 export default function RoleSwitcher({ role }) {
   const navigate = useNavigate()
   const { dispatch } = useApp()
@@ -25,17 +26,18 @@ export default function RoleSwitcher({ role }) {
       <span id="view-as-label" className="hidden text-xs font-medium text-muted sm:inline">
         View as
       </span>
-      <div role="group" aria-labelledby="view-as-label" className="flex rounded-card border border-line bg-canvas p-0.5">
+      <div role="group" aria-labelledby="view-as-label" className="flex rounded-card border border-ink bg-ink p-0.5">
         {Object.keys(roleLabels).map((roleKey) => (
           <button
             key={roleKey}
             type="button"
             onClick={() => switchRole(roleKey)}
             aria-pressed={roleKey === role}
-            className={`rounded px-2.5 py-1 text-sm ${focusRing} ${
+            // The accent focus ring is too faint on ink, so these use a white one.
+            className={`relative rounded px-2.5 py-1 text-sm before:absolute before:inset-x-0 before:-inset-y-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface ${
               roleKey === role
-                ? 'bg-surface font-semibold text-accent shadow-[0_0_0_1px_var(--color-line)]'
-                : 'font-medium text-muted hover:text-ink'
+                ? 'bg-surface font-semibold text-ink'
+                : 'font-medium text-inverse-muted hover:text-surface'
             }`}
           >
             {roleLabels[roleKey]}
@@ -47,7 +49,7 @@ export default function RoleSwitcher({ role }) {
         onClick={resetDemoData}
         aria-label="Reset demo data"
         title="Reset demo data"
-        className={`grid size-8 place-items-center rounded-card text-muted hover:bg-canvas hover:text-ink ${focusRing}`}
+        className={`relative grid size-8 place-items-center rounded-card text-muted before:absolute before:-inset-1 hover:bg-canvas hover:text-ink ${focusRing}`}
       >
         <RotateCcw size={16} aria-hidden="true" />
       </button>
