@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import LahoreClock from './LahoreClock'
 
 const sectionLinks = [
+  { label: 'Tour', href: '#tour' },
   { label: 'How it works', href: '#how-it-works' },
   { label: 'Why OFU', href: '#why-ofu' },
   { label: 'FAQ', href: '#faq' },

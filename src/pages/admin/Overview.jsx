@@ -12,7 +12,8 @@ import { countByType, describeTypeCounts, getOldestPending, getOverviewMetrics }
 const PANEL_ID = 'metric-panel'
 
 // The stat cards are tabs, and one large chart shows the chosen metric per day.
-export default function Overview() {
+// preview is the landing page tour: the charts appear without animating.
+export default function Overview({ preview = false }) {
   const { state } = useApp()
   const [selectedId, setSelectedId] = useState('applications')
   const [days, setDays] = useState(30)
@@ -53,6 +54,7 @@ export default function Overview() {
             summary={selected.summary}
             title={`${selected.seriesName}, last ${days} days`}
             color={metricChartColors[selected.id]}
+            animate={!preview}
           />
         </div>
       </div>
@@ -71,6 +73,7 @@ export default function Overview() {
               data={typeCounts}
               summary={`Approved opportunities by type: ${describeTypeCounts(typeCounts)}.`}
               title="Approved opportunities by type"
+              animate={!preview}
             />
           </div>
         </section>

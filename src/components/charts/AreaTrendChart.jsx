@@ -8,8 +8,10 @@ import { chartColors } from './chartColors'
 const axisTick = { fill: chartColors.axisText, fontSize: 12 }
 
 // One series as a line with a soft fill fading to nothing. data is [{ date, label, count }].
-export default function AreaTrendChart({ data, name, summary, title, color = chartColors.primary }) {
+// animate={false} draws it straight away, e.g. in the landing page tour.
+export default function AreaTrendChart({ data, name, summary, title, color = chartColors.primary, animate = true }) {
   const prefersReducedMotion = usePrefersReducedMotion()
+  const isAnimationActive = animate && !prefersReducedMotion
   // useId can contain characters that break url(#...), so keep letters and digits only.
   const gradientId = `area-fill-${useId().replace(/[^a-zA-Z0-9]/g, '')}`
 
@@ -38,7 +40,7 @@ export default function AreaTrendChart({ data, name, summary, title, color = cha
             <Tooltip
               content={<ChartTooltip />}
               cursor={{ stroke: chartColors.cursor, strokeDasharray: '3 3' }}
-              isAnimationActive={!prefersReducedMotion}
+              isAnimationActive={isAnimationActive}
             />
             <Area
               type="monotone"
@@ -48,7 +50,7 @@ export default function AreaTrendChart({ data, name, summary, title, color = cha
               strokeWidth={2.5}
               fill={`url(#${gradientId})`}
               activeDot={{ r: 4, strokeWidth: 0 }}
-              isAnimationActive={!prefersReducedMotion}
+              isAnimationActive={isAnimationActive}
             />
           </AreaChart>
         </ResponsiveContainer>

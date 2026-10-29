@@ -7,7 +7,19 @@ import { getAlumniPosts } from '../../store/reducer'
 import { useToast } from '../../store/ToastContext'
 import { dateFromToday } from '../../utils/dates'
 
-export default function PostOpportunity() {
+// A filled-in example, so the landing page tour shows the form and its live preview card in use.
+const previewPost = {
+  title: 'Junior Frontend Developer',
+  type: 'Job',
+  location: 'Gulberg, Lahore',
+  deadline: dateFromToday(14),
+  stipend: 'PKR 80,000 / month',
+  description:
+    'Build and polish React screens with a small product team. Fresh graduates who know HTML, CSS and JavaScript are welcome to apply with a short portfolio.',
+}
+
+// preview is the landing page tour: ignores ?from and never saves or shows a toast.
+export default function PostOpportunity({ preview = false }) {
   const { state, dispatch } = useApp()
   const { showToast } = useToast()
   const navigate = useNavigate()
@@ -15,13 +27,14 @@ export default function PostOpportunity() {
 
   // ?from=ID pre-fills the form with a copy of one of this alumnus's rejected posts.
   const [searchParams] = useSearchParams()
-  const sourcePost = getAlumniPosts(state).find(
-    (post) => post.id === searchParams.get('from') && post.status === 'rejected',
-  )
+  const sourcePost = preview
+    ? undefined
+    : getAlumniPosts(state).find((post) => post.id === searchParams.get('from') && post.status === 'rejected')
 
   // New posts wait for an admin before students can see them. A resubmitted copy is a
   // new post too; the rejected one stays in My posts.
   function submitPost(post) {
+    if (preview) return
     dispatch({
       type: 'ADD_OPPORTUNITY',
       opportunity: {
@@ -39,6 +52,21 @@ export default function PostOpportunity() {
       actionLabel: 'View',
       onAction: () => navigate('/alumni/posts'),
     })
+  }
+
+  let initialValues
+  if (preview) {
+    initialValues = { ...previewPost, organisation: alumnus?.organisation ?? '' }
+  } else if (sourcePost) {
+    initialValues = {
+      title: sourcePost.title,
+      type: sourcePost.type,
+      organisation: sourcePost.organisation,
+      location: sourcePost.location,
+      deadline: sourcePost.deadline,
+      stipend: sourcePost.stipend,
+      description: sourcePost.description,
+    }
   }
 
   return (
@@ -60,17 +88,7 @@ export default function PostOpportunity() {
         <PostOpportunityForm
           key={sourcePost?.id ?? 'new'}
           defaultOrganisation={alumnus?.organisation ?? ''}
-          initialValues={
-            sourcePost && {
-              title: sourcePost.title,
-              type: sourcePost.type,
-              organisation: sourcePost.organisation,
-              location: sourcePost.location,
-              deadline: sourcePost.deadline,
-              stipend: sourcePost.stipend,
-              description: sourcePost.description,
-            }
-          }
+          initialValues={initialValues}
           onSubmit={submitPost}
         />
       </div>

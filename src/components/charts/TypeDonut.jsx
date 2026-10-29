@@ -7,8 +7,10 @@ import { typeChartColors } from './chartColors'
 
 // A ring of opportunity types with a legend that names each type and its count,
 // so no slice relies on colour alone. data is [{ type, count }].
-export default function TypeDonut({ data, summary, title }) {
+// animate={false} draws it straight away, e.g. in the landing page tour.
+export default function TypeDonut({ data, summary, title, animate = true }) {
   const prefersReducedMotion = usePrefersReducedMotion()
+  const isAnimationActive = animate && !prefersReducedMotion
   const total = data.reduce((sum, { count }) => sum + count, 0)
 
   return (
@@ -16,7 +18,7 @@ export default function TypeDonut({ data, summary, title }) {
       <div className="relative size-44 shrink-0">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
-            <Tooltip content={<ChartTooltip />} isAnimationActive={!prefersReducedMotion} />
+            <Tooltip content={<ChartTooltip />} isAnimationActive={isAnimationActive} />
             <Pie
               data={data}
               dataKey="count"
@@ -25,7 +27,7 @@ export default function TypeDonut({ data, summary, title }) {
               outerRadius="100%"
               stroke="var(--color-surface)"
               strokeWidth={2}
-              isAnimationActive={!prefersReducedMotion}
+              isAnimationActive={isAnimationActive}
             >
               {data.map(({ type }) => (
                 <Cell key={type} fill={typeChartColors[type]} />

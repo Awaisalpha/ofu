@@ -14,13 +14,17 @@ import { useApp } from '../../store/AppContext'
 import { filterOpportunities, sortOpportunities } from '../../utils/filters'
 
 const SKELETON_CARD_COUNT = 8
+const PREVIEW_CARD_COUNT = 6
 
-export default function Browse() {
+// preview is the landing page tour: no skeleton, no URL, first 6 cards only.
+export default function Browse({ preview = false }) {
   const { state } = useApp()
-  const isLoading = useSimulatedLoading()
+  const isLoading = useSimulatedLoading(preview)
 
   // Filters live in the URL, so they are still there after opening a card and going back.
-  const [searchParams, setSearchParams] = useSearchParams()
+  // The preview reads empty params, so it never picks up the landing page's URL.
+  const [urlParams, setSearchParams] = useSearchParams()
+  const searchParams = preview ? new URLSearchParams() : urlParams
   const searchText = searchParams.get('q') ?? ''
   // The URL holds a lowercase slug (?type=internship); unknown values fall back to All.
   const type = opportunityTypes.find((option) => option.toLowerCase() === searchParams.get('type')) ?? 'All'
@@ -52,6 +56,7 @@ export default function Browse() {
     sortBy,
   )
   const resultCount = filteredOpportunities.length
+  const visibleOpportunities = preview ? filteredOpportunities.slice(0, PREVIEW_CARD_COUNT) : filteredOpportunities
 
   return (
     <section>
@@ -101,7 +106,7 @@ export default function Browse() {
           </EmptyState>
         ) : (
           <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-            {filteredOpportunities.map((opportunity) => (
+            {visibleOpportunities.map((opportunity) => (
               <li key={opportunity.id}>
                 <OpportunityCard opportunity={opportunity} />
               </li>

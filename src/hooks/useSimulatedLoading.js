@@ -7,8 +7,9 @@ const LOADING_DURATION_MS = 600
 let hasLoadedOnce = false
 
 // Pretends data is being fetched, so the skeleton loaders are visible in the demo.
-export function useSimulatedLoading() {
-  const [isLoading, setIsLoading] = useState(!hasLoadedOnce)
+// skip is for the landing page tour: no skeleton, and the real page still gets its first load.
+export function useSimulatedLoading(skip = false) {
+  const [isLoading, setIsLoading] = useState(!skip && !hasLoadedOnce)
 
   useEffect(() => {
     if (!isLoading) return
