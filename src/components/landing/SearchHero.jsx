@@ -38,7 +38,7 @@ export default function SearchHero() {
       {/* The top padding leaves room for the nav pill that sits over the photo. */}
       <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 pt-32 pb-16 text-center sm:pt-36 sm:pb-24">
         <h1 className="text-4xl leading-[1.1] font-bold tracking-tight text-balance text-white text-shadow-hero sm:text-5xl">
-          Every UCP opportunity, in one place
+          Every career opportunity, in one place
         </h1>
         <p className="mt-4 max-w-[55ch] text-base text-pretty text-white text-shadow-hero sm:text-lg">
           Jobs, internships, scholarships, freelance work and events, verified and organised so you never miss a
