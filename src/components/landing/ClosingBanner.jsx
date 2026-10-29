@@ -1,7 +1,7 @@
 import { ChevronRight } from 'lucide-react'
 import { Link } from 'react-router'
 
-// "already here" sits on a solid accent block. White on the accent passes AA (about 8.7:1).
+// "already here" sits on a solid accent block. White on the accent passes AA (4.7:1).
 // box-decoration-clone repeats the padding on each line if the words wrap.
 export default function ClosingBanner() {
   return (

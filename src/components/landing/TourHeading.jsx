@@ -3,7 +3,7 @@
 export default function TourHeading() {
   return (
     <div className="max-w-5xl">
-      <p className="text-xs leading-4 font-semibold tracking-[0.12em] text-accent uppercase">Take a tour</p>
+      <p className="text-xs leading-4 font-semibold tracking-[0.12em] text-accent-strong uppercase">Take a tour</p>
       <h2
         id="tour-heading"
         className="mt-3 text-[32px] leading-[1.05] font-bold tracking-[-0.02em] text-balance md:text-5xl md:leading-[1.05] lg:text-[56px]"

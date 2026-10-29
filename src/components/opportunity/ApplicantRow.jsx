@@ -37,7 +37,7 @@ export default function ApplicantRow({ entry, onDecide, onUndo }) {
             onClick={() => setIsExpanded(!isExpanded)}
             aria-expanded={isExpanded}
             aria-controls={noteId}
-            className="inline-flex items-center gap-1 rounded py-1 text-sm font-medium text-accent underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="inline-flex items-center gap-1 rounded py-1 text-sm font-medium text-accent-strong underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             {isExpanded ? 'Hide note' : 'Read note'}
             <span className="sr-only"> from {student.name}</span>

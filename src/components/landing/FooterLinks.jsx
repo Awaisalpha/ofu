@@ -8,7 +8,7 @@ const sectionLinks = [
 
 // h-10 keeps every item a 40px click target. Same hover as the landing page navbar links.
 const linkClasses =
-  'inline-flex h-10 items-center rounded-full px-3 text-sm font-semibold whitespace-nowrap text-ink hover:bg-accent-soft hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent'
+  'inline-flex h-10 items-center rounded-full px-3 text-sm font-semibold whitespace-nowrap text-ink hover:bg-accent-soft hover:text-accent-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent'
 
 export default function FooterLinks() {
   return (

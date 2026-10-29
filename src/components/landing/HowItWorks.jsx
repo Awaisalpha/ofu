@@ -39,7 +39,7 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" aria-labelledby="how-it-works-heading" className="scroll-mt-20">
       <div className="mx-auto max-w-2xl text-center">
-        <p className="font-hand text-2xl leading-none font-semibold text-accent">Simple steps</p>
+        <p className="font-hand text-2xl leading-none font-semibold text-accent-strong">Simple steps</p>
         <h2 id="how-it-works-heading" className="mt-2 text-2xl leading-tight font-semibold tracking-tight text-balance sm:text-3xl">
           How it works
         </h2>
@@ -62,7 +62,7 @@ export default function HowItWorks() {
                     className={`flex w-full items-center gap-3 rounded-card text-left text-lg leading-snug font-semibold text-balance hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${isActive ? 'text-ink' : 'text-muted'}`}
                   >
                     <span
-                      className={`grid size-10 shrink-0 place-items-center rounded-xl ${isActive ? 'bg-accent-soft text-accent' : 'text-muted'}`}
+                      className={`grid size-10 shrink-0 place-items-center rounded-xl ${isActive ? 'bg-accent-soft text-accent-strong' : 'text-muted'}`}
                     >
                       <Icon size={20} aria-hidden="true" />
                     </span>

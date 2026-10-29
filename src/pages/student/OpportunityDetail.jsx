@@ -122,7 +122,7 @@ export default function OpportunityDetail() {
                 You've already applied.{' '}
                 <Link
                   to="/student/applications"
-                  className="rounded font-medium text-accent underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  className="rounded font-medium text-accent-strong underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   See your applications
                 </Link>

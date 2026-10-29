@@ -48,7 +48,7 @@ export default function LandingNav() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className={`rounded-full px-3 py-2 text-sm font-medium whitespace-nowrap text-ink hover:bg-accent-soft hover:text-accent ${focusRing}`}
+                    className={`rounded-full px-3 py-2 text-sm font-medium whitespace-nowrap text-ink hover:bg-accent-soft hover:text-accent-strong ${focusRing}`}
                   >
                     {link.label}
                   </a>

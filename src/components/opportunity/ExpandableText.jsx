@@ -41,7 +41,7 @@ export default function ExpandableText({ id, text, clampClassName = 'line-clamp-
           onClick={() => setIsExpanded(!isExpanded)}
           aria-expanded={isExpanded}
           aria-controls={id}
-          className="mt-1.5 rounded text-sm font-medium text-accent underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="mt-1.5 rounded text-sm font-medium text-accent-strong underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           {isExpanded ? 'See less' : 'See more'}
         </button>

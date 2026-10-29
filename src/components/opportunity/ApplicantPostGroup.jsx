@@ -47,7 +47,7 @@ export default function ApplicantPostGroup({ post, entries, totalCount, toReview
           </div>
           <Link
             to={`/alumni/posts/${post.id}`}
-            className="inline-flex shrink-0 items-center gap-1 self-start rounded py-1 text-sm font-medium text-accent underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:mt-0.5"
+            className="inline-flex shrink-0 items-center gap-1 self-start rounded py-1 text-sm font-medium text-accent-strong underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:mt-0.5"
           >
             View post
             <span className="sr-only">: {post.title}</span>

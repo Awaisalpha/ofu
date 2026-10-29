@@ -6,7 +6,7 @@ export default function PreviewPill({ label, className = '', arrowClassName = ''
     <div aria-hidden="true" className={`pointer-events-none hidden items-center gap-1 md:flex ${className}`}>
       <span
         key={label}
-        className="rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold whitespace-nowrap text-accent shadow-float motion-safe:animate-fade-in"
+        className="rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold whitespace-nowrap text-accent-strong shadow-float motion-safe:animate-fade-in"
       >
         {label}
       </span>

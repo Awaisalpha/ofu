@@ -46,7 +46,7 @@ export default function DecisionActions({ application, student, onDecide, onUndo
         type="button"
         aria-label={`Undo decision for ${student.name}`}
         onClick={() => onUndo(application, student)}
-        className="rounded py-1 text-sm font-medium text-accent underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="rounded py-1 text-sm font-medium text-accent-strong underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         Undo
       </button>

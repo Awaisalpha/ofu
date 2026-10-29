@@ -32,7 +32,7 @@ export default function PostRow({ post, applicantCount }) {
             ) : (
               <Link
                 to={`/alumni/applicants?post=${post.id}`}
-                className="relative z-10 rounded font-medium text-accent tabular-nums underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="relative z-10 rounded font-medium text-accent-strong tabular-nums underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 {applicantCount} {applicantCount === 1 ? 'applicant' : 'applicants'}
               </Link>

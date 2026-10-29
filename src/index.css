@@ -14,13 +14,16 @@
   --color-line: #e2e5ea;
   /* Form control borders need 3:1 against the surface. */
   --color-line-strong: #8b94a3;
-  /* Light grey text on an ink (near-black) background. */
-  --color-inverse-muted: #cbd5e1;
+  /* Neutral light grey text on an ink (near-black) background, 12:1. */
+  --color-inverse-muted: #d4d4d4;
 
-  --color-accent: #1e40af;
-  --color-accent-hover: #1a3793;
-  --color-accent-strong: #1e3a8a;
-  --color-accent-soft: #e8eefb;
+  /* accent: fills, icons and focus rings. White on it is 4.7:1, as text on white 4.7:1.
+     It drops under 4.5:1 on canvas and soft, so small accent text uses accent-strong, the same
+     darker shade as hover: 5.8:1 on canvas, 5.4:1 on soft. */
+  --color-accent: #2667ff;
+  --color-accent-hover: #1f56d9;
+  --color-accent-strong: #1f56d9;
+  --color-accent-soft: #eaf0ff;
   /* White text and icons on a strong metric colour. */
   --color-on-accent: #ffffff;
 
@@ -57,7 +60,7 @@
   --color-metric-pending-line: #fde68a;
   --color-metric-applications-strong: var(--color-accent-strong);
   --color-metric-applications-soft: var(--color-accent-soft);
-  --color-metric-applications-line: #bfdbfe;
+  --color-metric-applications-line: #c9d8ff;
 
   --radius-card: 0.375rem;
 
