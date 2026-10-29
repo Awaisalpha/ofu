@@ -8,8 +8,7 @@ export default function FooterBrand() {
       <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-accent text-[11px] font-bold tracking-wide text-white">
         OFU
       </span>
-      <span className="text-sm font-semibold text-ink">Opportunities</span>
-      <span className="sr-only">, back to top</span>
+      <span className="sr-only"> home</span>
     </a>
   )
 }

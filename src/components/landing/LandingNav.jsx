@@ -1,6 +1,5 @@
 import { ChevronRight } from 'lucide-react'
 import { Link } from 'react-router'
-import LahoreClock from './LahoreClock'
 
 const sectionLinks = [
   { label: 'Tour', href: '#tour' },
@@ -40,8 +39,7 @@ export default function LandingNav() {
                 <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-accent text-[11px] font-bold tracking-wide text-white">
                   OFU
                 </span>
-                <span className="text-sm font-semibold text-ink">Opportunities</span>
-                <span className="sr-only">, back to top</span>
+                <span className="sr-only"> home</span>
               </a>
             </div>
 
@@ -58,11 +56,8 @@ export default function LandingNav() {
               ))}
             </ul>
 
-            <div className="flex flex-1 items-center justify-end gap-2">
-              {/* Hidden under 1024px, where the pill runs out of room for it. */}
-              <div className="hidden lg:block">
-                <LahoreClock />
-              </div>
+            {/* flex-1 on both sides keeps the links centred in the pill. */}
+            <div className="flex flex-1 justify-end">
               <Link
                 to="/student/browse"
                 className={`flex h-10 items-center gap-1.5 rounded-full bg-accent pr-3 pl-4 text-sm font-semibold whitespace-nowrap text-white hover:bg-accent-hover ${focusRing}`}
